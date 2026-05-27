@@ -146,7 +146,8 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
     interest_scores = Counter()
     skill_scores = Counter()
     user_work_styles = Counter()
-    user_experience_sector = None # Nouveau: pour stocker le secteur d'expérience
+    domain_scores = Counter()
+    user_experience_sector = None
 
     for q_id, answer in user_answers.items():
         if isinstance(answer, dict) and 'tags' in answer:
@@ -157,13 +158,14 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
                     if tag_type == "quality": quality_scores[tag_value] += 1
                     elif tag_type == "interest": interest_scores[tag_value] += 1
                     elif tag_type == "skill": skill_scores[tag_value] += 1
-                    elif tag_type == "experience_sector": # Capturer le secteur d'expérience
+                    elif tag_type == "domain": domain_scores[tag_value] += 1
+                    elif tag_type == "experience_sector":
                         user_experience_sector = tag_value
                     elif tag_type in ["work_style", "tag"]:
                         user_work_styles[tag_value] += 1
-    
+
     user_profile_terms = Counter()
-    for keyword, count in (quality_scores + interest_scores + skill_scores).items():
+    for keyword, count in (quality_scores + interest_scores + skill_scores + user_work_styles + domain_scores).items():
         search_terms = semantic_map.get(keyword, [keyword.lower()])
         for term in search_terms:
             for sub_term in term.split():
