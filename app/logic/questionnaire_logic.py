@@ -142,13 +142,21 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
     affinity_weight = reconversion_engine_weights.get("affinity_score", 0.6)
     transferability_weight = reconversion_engine_weights.get("transferability_bonus", 0.4)
 
-    # Pré-construire la map master_code → niveaux d'éducation pour le filtre de formation
+    # Pré-construire la map code → niveaux d'éducation pour le filtre de formation.
+    # On indexe sous le code direct en priorité (les fiches alias ont leur propre entrée
+    # dans job_education_map depuis ROME v4.60) ET sous le code maître pour la
+    # compatibilité descendante avec les références legacy.
+    jobs_code_set = {job.get('rome', {}).get('code_rome') for job in jobs_data}
     master_to_levels = {}
     if job_education_map and rome_alias_map:
         for raw_code, levels in job_education_map.items():
-            master_code = rome_alias_map.get(raw_code)
-            if master_code:
-                master_to_levels.setdefault(master_code, set()).update(levels)
+            # Direct lookup si le code est dans le catalogue
+            if raw_code in jobs_code_set:
+                master_to_levels.setdefault(raw_code, set()).update(levels)
+            # Fallback alias pour couvrir les cas où le code n'est pas standalone
+            alias = rome_alias_map.get(raw_code, raw_code)
+            if alias != raw_code:
+                master_to_levels.setdefault(alias, set()).update(levels)
 
     # 1. Construire le profil de l'utilisateur
     user_answers = user_profile.get("answers", {})

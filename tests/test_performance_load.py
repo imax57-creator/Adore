@@ -10,7 +10,8 @@ from app.logic.profile_utils import generate_random_profile
 from test_utils import load_all_data, run_suggestion_engine
 
 NUM_SIMULATIONS = 50
-PERFORMANCE_THRESHOLD_AVG_S = 0.5 # Seuil acceptable pour le temps de réponse moyen en secondes
+PERFORMANCE_THRESHOLD_AVG_S = 1.5  # Seuil pour le temps de réponse moyen en secondes
+                                    # (calibré pour un catalogue de ~1584 métiers ; était 0.5s pour 532)
 
 def run_all_checks():
     """Exécute le test de charge pour mesurer les performances du moteur de suggestion."""

@@ -137,18 +137,25 @@ class DataManager:
         self._jobs_map = {job['rome']['code_rome']: job for job in self.jobs}
 
         def _get_unique_jobs_from_codes(code_list):
-            """Resolves aliases, removes duplicates, and returns a clean list of job objects."""
+            """Resolves codes to job objects, deduplicates, and returns a stable list.
+
+            Priority: direct lookup (alias fiches have their own entry since ROME v4.60),
+            then alias-map fallback for legacy codes absent from _jobs_map.
+            """
             if not code_list:
                 return []
-            
-            master_codes = set()
-            for code in code_list:
-                master_code = self.rome_alias_map.get(code)
-                if master_code:
-                    master_codes.add(master_code)
-            
-            # Return jobs in a stable order (sorted by ROME code)
-            return [self._jobs_map[code] for code in sorted(list(master_codes)) if code in self._jobs_map]
+
+            seen = set()
+            result = []
+            for code in sorted(code_list):
+                if code in self._jobs_map:
+                    canonical = code
+                else:
+                    canonical = self.rome_alias_map.get(code, code)
+                if canonical not in seen and canonical in self._jobs_map:
+                    seen.add(canonical)
+                    result.append(self._jobs_map[canonical])
+            return result
 
         # 2. Index jobs by activity sector
         self._sector_to_jobs = {
@@ -171,11 +178,15 @@ class DataManager:
         # 5. Index jobs by education level
         temp_level_map = defaultdict(set)
         for rome_code, levels in self.job_education_map.items():
-            # Resolve alias before adding to the map to ensure consistency
-            master_code = self.rome_alias_map.get(rome_code)
-            if master_code:
+            # Direct lookup first (alias fiches have their own entry since ROME v4.60),
+            # then alias-map fallback for legacy codes absent from _jobs_map.
+            if rome_code in self._jobs_map:
+                canonical = rome_code
+            else:
+                canonical = self.rome_alias_map.get(rome_code, rome_code)
+            if canonical in self._jobs_map:
                 for level in levels:
-                    temp_level_map[level].add(master_code)
+                    temp_level_map[level].add(canonical)
         self._education_level_to_jobs = temp_level_map
 
         log.info("Navigation indexes built successfully.")
@@ -183,20 +194,24 @@ class DataManager:
     # --- PUBLIC API ---
 
     def get_job_by_code(self, rome_code):
-        """Returns a single job object by its ROME code, resolving aliases to master codes."""
+        """Returns a single job object by its ROME code.
+
+        Tries direct lookup first (covers all fiches since ROME v4.60 includes alias fiches),
+        then falls back to alias-map resolution for legacy codes.
+        """
         if not rome_code:
             return None
 
+        if rome_code in self._jobs_map:
+            return self._jobs_map[rome_code]
+
         master_code = self.rome_alias_map.get(rome_code)
+        if master_code and master_code in self._jobs_map:
+            log.debug(f"Code '{rome_code}' resolved via alias map to '{master_code}'.")
+            return self._jobs_map[master_code]
 
-        if not master_code:
-            log.warning(f"Code ROME '{rome_code}' not found in alias map. Cannot resolve.")
-            return None
-
-        if rome_code != master_code:
-            log.debug(f"Alias code '{rome_code}' resolved to master code '{master_code}'.")
-
-        return self._jobs_map.get(master_code)
+        log.warning(f"Code ROME '{rome_code}' introuvable dans _jobs_map ni dans rome_alias_map.")
+        return None
 
     def get_all_sectors(self):
         """Returns a sorted list of all activity sectors."""

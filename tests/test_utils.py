@@ -20,6 +20,10 @@ from app.data_manager import DataManager, DataError # Import DataManager
 # This ensures IDF and tag_profile_freq are calculated once
 _data_manager_instance = None
 
+def get_data_manager():
+    """Retourne l'instance DataManager singleton (doit être appelé après load_all_data())."""
+    return _data_manager_instance
+
 def load_all_data():
     """Charge tous les fichiers de données JSON nécessaires pour les tests."""
     global _data_manager_instance

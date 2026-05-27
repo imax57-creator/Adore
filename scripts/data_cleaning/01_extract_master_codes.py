@@ -22,25 +22,26 @@ def extract_master_codes():
         print(f"ERREUR : Le fichier d'entrée n'a pas été trouvé : {input_file}")
         sys.exit(1)
 
-    master_codes = set()
-    
+    all_codes = set()
+
     try:
         # Utilisation de l'encodage 'latin-1' pour gérer les caractères spéciaux
         with open(input_file, 'r', encoding='latin-1') as f:
             # Utilise ijson pour parser le fichier en streaming
             parser = ijson.items(f, 'item')
             for entry in parser:
-                # Vérifie si l'entrée est une fiche maître
-                if entry.get('code_rome') and entry.get('code_rome_parent') and entry['code_rome'] == entry['code_rome_parent']:
-                    master_codes.add(entry['code_rome'])
-        
+                # Conserver TOUS les codes ROME valides (maîtres + alias),
+                # car chaque code possède sa propre fiche emploi distincte dans ROME v4.60.
+                if entry.get('code_rome'):
+                    all_codes.add(entry['code_rome'])
+
         # Convertir le set en liste pour la sérialisation JSON
-        master_codes_list = sorted(list(master_codes))
-        
+        all_codes_list = sorted(list(all_codes))
+
         with open(output_file, 'w', encoding='utf-8') as f_out:
-            json.dump(master_codes_list, f_out, indent=2)
-            
-        print(f"✅ Succès : {len(master_codes_list)} codes maîtres extraits.")
+            json.dump(all_codes_list, f_out, indent=2)
+
+        print(f"✅ Succès : {len(all_codes_list)} codes extraits (maîtres + alias).")
         print(f"   -> Sauvegardés dans {output_file}")
 
     except Exception as e:

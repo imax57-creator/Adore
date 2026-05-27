@@ -5,7 +5,9 @@ from collections import Counter
 # Assurer que test_utils peut être importé
 current_dir = os.path.dirname(__file__)
 sys.path.insert(0, current_dir)
-from test_utils import load_all_data
+from test_utils import load_all_data, get_data_manager
+
+MIN_UNIQUE_SEARCH_TERMS = 20  # seuil bas — tous les métiers ont ≥125 termes en pratique
 
 def run_all_checks():
     """Exécute toutes les vérifications d'intégrité des données et retourne les résultats."""
@@ -46,6 +48,46 @@ def run_all_checks():
         errors.extend(job_errors)
         overall_success = False
         print("   -> ❌ Problèmes trouvés.")
+    else:
+        print("   -> ✅ OK.")
+
+    dm = get_data_manager()
+
+    # --- Test 4: Prérequis du scoring (champs essentiels + termes indexés) ---
+    print("4. Vérification des prérequis de scoring pour chaque métier...")
+    scoring_errors = check_scoring_prerequisites(jobs_data)
+    if scoring_errors:
+        errors.extend(scoring_errors)
+        overall_success = False
+        print(f"   -> ❌ {len(scoring_errors)} problème(s) trouvé(s).")
+        for e in scoring_errors[:5]:
+            print(f"      {e}")
+        if len(scoring_errors) > 5:
+            print(f"      ... et {len(scoring_errors) - 5} autre(s).")
+    else:
+        print("   -> ✅ OK.")
+
+    # --- Test 5: Présence dans les index de navigation ---
+    print("5. Vérification de la couverture des index de navigation...")
+    nav_errors = check_navigation_index_coverage(dm)
+    if nav_errors:
+        errors.extend(nav_errors)
+        overall_success = False
+        print(f"   -> ❌ {len(nav_errors)} métier(s) absent(s) des index.")
+        for e in nav_errors[:5]:
+            print(f"      {e}")
+    else:
+        print("   -> ✅ OK.")
+
+    # --- Test 6: Complétude de rome_alias_map ---
+    print("6. Vérification de la complétude de rome_alias_map...")
+    alias_errors = check_alias_map_completeness(dm)
+    if alias_errors:
+        errors.extend(alias_errors)
+        overall_success = False
+        print(f"   -> ❌ {len(alias_errors)} code(s) ROME manquant(s) dans l'alias map.")
+        for e in alias_errors[:5]:
+            print(f"      {e}")
     else:
         print("   -> ✅ OK.")
 
@@ -104,6 +146,85 @@ def check_job_data_structure(jobs_data):
             errors.append(f"[Jobs Data]: Le code ROME '{code}' est dupliqué {count} fois.")
             
     return errors
+
+def check_scoring_prerequisites(jobs_data):
+    """Vérifie que chaque métier possède les champs essentiels au scoring et un minimum de termes indexés."""
+    errors = []
+    for job in jobs_data:
+        rome = job.get('rome', {})
+        code = rome.get('code_rome', '?')
+        name = rome.get('intitule', '?')
+
+        if not job.get('definition', '').strip():
+            errors.append(f"[{code}] '{name}' : champ 'definition' vide ou absent.")
+
+        if not job.get('secteurs_activite'):
+            errors.append(f"[{code}] '{name}' : champ 'secteurs_activite' vide ou absent.")
+
+        competences = job.get('competences', {})
+        if not competences or not any(competences.values()):
+            errors.append(f"[{code}] '{name}' : champ 'competences' vide ou absent.")
+
+        unique_terms = len(set(job.get('_search_terms_list', [])))
+        if unique_terms < MIN_UNIQUE_SEARCH_TERMS:
+            errors.append(
+                f"[{code}] '{name}' : seulement {unique_terms} terme(s) de recherche unique(s) "
+                f"(minimum requis : {MIN_UNIQUE_SEARCH_TERMS})."
+            )
+
+    return errors
+
+
+def _extract_codes_from_index(index_dict):
+    """Extrait l'ensemble des codes ROME depuis un index de navigation."""
+    codes = set()
+    for items in index_dict.values():
+        if isinstance(items, set):
+            codes.update(items)
+        elif isinstance(items, list):
+            for item in items:
+                if isinstance(item, str):
+                    codes.add(item)
+                elif isinstance(item, dict):
+                    code = item.get('rome', {}).get('code_rome') or item.get('code_rome')
+                    if code:
+                        codes.add(code)
+    return codes
+
+
+def check_navigation_index_coverage(dm):
+    """Vérifie que chaque métier apparaît dans au moins un des index secteur ou intérêt."""
+    errors = []
+    all_codes = {j['rome']['code_rome'] for j in dm.jobs}
+    in_sector = _extract_codes_from_index(dm._sector_to_jobs)
+    in_interest = _extract_codes_from_index(dm._interest_to_jobs)
+    in_any = in_sector | in_interest
+
+    missing = sorted(all_codes - in_any)
+    for code in missing:
+        job = dm.get_job_by_code(code)
+        name = job['rome']['intitule'] if job else '???'
+        errors.append(
+            f"[{code}] '{name}' absent des index 'secteur' et 'intérêt' "
+            f"(métier non navigable depuis l'ExplorerView)."
+        )
+    return errors
+
+
+def check_alias_map_completeness(dm):
+    """Vérifie que chaque code ROME du catalogue est résolvable via rome_alias_map."""
+    errors = []
+    all_codes = {j['rome']['code_rome'] for j in dm.jobs}
+    missing = sorted(all_codes - set(dm.rome_alias_map.keys()))
+    for code in missing:
+        job = next((j for j in dm.jobs if j['rome']['code_rome'] == code), None)
+        name = job['rome']['intitule'] if job else '???'
+        errors.append(
+            f"[{code}] '{name}' absent de rome_alias_map.json — "
+            f"get_job_by_code('{code}') retournera None."
+        )
+    return errors
+
 
 if __name__ == '__main__':
     success, messages = run_all_checks()

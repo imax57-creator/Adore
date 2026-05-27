@@ -26,6 +26,9 @@ logs/*.log
 # Cache auto-généré (recalculé au démarrage)
 data/popularity_bias.json
 
+# Fichier intermédiaire régénéré par le pipeline de nettoyage
+data/jobs_rome.json
+
 # Fichiers de sauvegarde
 *.bak
 

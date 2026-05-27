@@ -125,10 +125,12 @@ def check_formation_filter(dm, jobs_data, semantic_map, idf_map, tag_profile_fre
 
     for job in top_jobs:
         code = job.get('rome', {}).get('code_rome')
-        master_code = dm.rome_alias_map.get(code)
-        if not master_code:
+        if not code:
             continue
-        levels = dm.job_education_map.get(master_code, set())
+        # Lookup direct uniquement : depuis ROME v4.60, chaque fiche alias a sa propre
+        # entrée dans job_education_map. On ne remonte plus vers le maître pour éviter
+        # d'attribuer le niveau du maître à un job dont les exigences diffèrent.
+        levels = set(dm.job_education_map.get(code, set()))
         if levels and set(levels) <= LONG_TRAINING_LEVELS:
             errors.append(
                 f"[Filtre formation] : '{job['rome']['intitule']}' ({code}) "
