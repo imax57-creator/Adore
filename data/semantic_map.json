@@ -923,5 +923,9 @@
   "it_digital": ["informatique", "numérique", "digital", "programmation", "logiciel"],
   "sport_wellbeing": ["sport", "bien-être", "activité physique"],
   "transport_logistics": ["transport", "logistique", "livraison"],
-  "commerce_tourism": ["commerce", "vente", "tourisme", "accueil"]
+  "commerce_tourism": ["commerce", "vente", "tourisme", "accueil"],
+  "mobile_international": ["international", "étranger", "langues étrangères", "export"],
+  "management_yes": ["management", "encadrement", "diriger", "responsable", "manager"],
+  "management_new": ["management", "encadrement", "manager"],
+  "management_expert": ["expert", "spécialiste", "expertise", "référent"]
 }

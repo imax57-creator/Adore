@@ -107,7 +107,9 @@ class ResultsView(ctk.CTkFrame):
                 self.data_manager.idf,
                 self.data_manager.tag_profile_freq,
                 self.data_manager.term_to_category,
-                scoring_config
+                scoring_config,
+                job_education_map=self.data_manager.job_education_map,
+                rome_alias_map=self.data_manager.rome_alias_map,
             )
         else:
             # Utiliser l'algorithme standard pour le parcours jeune

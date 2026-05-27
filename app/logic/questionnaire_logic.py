@@ -124,21 +124,31 @@ def calculate_recommendations(user_profile, jobs_data, semantic_map, idf_map, ta
     return [], recommended_jobs_list, user_strengths_summary, [], weak_match, user_interests_summary, user_skills_summary
 
 
-def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map, idf_map, tag_profile_freq, term_to_category_map, scoring_config):
-    """
-    Calcule les recommandations de métiers spécifiquement pour un profil adulte en reconversion.
-    Cette fonction utilisera un algorithme hybride qui pondère :
-    1. Le score d'affinité (basé sur les intérêts et préférences).
-    2. Un bonus de transférabilité (basé sur les compétences et l'expérience passée).
-    3. Des filtres de contraintes (durée de formation, etc. - à implémenter).
-    """
+_FORMATION_ALLOWED_LEVELS = {
+    "court": {"CAP_BEP", "CACES", "HABILITATION", "BAC"},
+    "moyen": {"CAP_BEP", "CACES", "HABILITATION", "BAC", "BAC+2"},
+    "long":  {"CAP_BEP", "CACES", "HABILITATION", "BAC", "BAC+2", "BAC+3"},
+    "any":   None,
+}
+
+def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map, idf_map, tag_profile_freq,
+                                           term_to_category_map, scoring_config,
+                                           job_education_map=None, rome_alias_map=None):
     # Extraire les paramètres de pondération de la configuration
     tag_category_weights = scoring_config.get("tag_category_weights", {})
     popularity_bias_factor = scoring_config.get("popularity_bias_factor", 2.4)
     reconversion_engine_weights = scoring_config.get("reconversion_engine_weights", {})
-    
+
     affinity_weight = reconversion_engine_weights.get("affinity_score", 0.6)
     transferability_weight = reconversion_engine_weights.get("transferability_bonus", 0.4)
+
+    # Pré-construire la map master_code → niveaux d'éducation pour le filtre de formation
+    master_to_levels = {}
+    if job_education_map and rome_alias_map:
+        for raw_code, levels in job_education_map.items():
+            master_code = rome_alias_map.get(raw_code)
+            if master_code:
+                master_to_levels.setdefault(master_code, set()).update(levels)
 
     # 1. Construire le profil de l'utilisateur
     user_answers = user_profile.get("answers", {})
@@ -148,6 +158,7 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
     user_work_styles = Counter()
     domain_scores = Counter()
     user_experience_sector = None
+    formation_constraint = None
 
     for q_id, answer in user_answers.items():
         if isinstance(answer, dict) and 'tags' in answer:
@@ -161,6 +172,8 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
                     elif tag_type == "domain": domain_scores[tag_value] += 1
                     elif tag_type == "experience_sector":
                         user_experience_sector = tag_value
+                    elif tag_type == "formation_constraint":
+                        formation_constraint = tag_value
                     elif tag_type in ["work_style", "tag"]:
                         user_work_styles[tag_value] += 1
 
@@ -171,9 +184,22 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
             for sub_term in term.split():
                 user_profile_terms[sub_term] += count
 
-    # Passe 1 : calcul des scores d'affinité bruts pour tous les métiers
+    # Filtre dur : durée de formation
+    allowed_formation_levels = _FORMATION_ALLOWED_LEVELS.get(formation_constraint)
+    def _formation_ok(job):
+        if allowed_formation_levels is None:
+            return True
+        code = job.get('rome', {}).get('code_rome')
+        levels = master_to_levels.get(code)
+        if not levels:
+            return True  # pas de données → bénéfice du doute
+        return bool(levels & allowed_formation_levels)
+
+    filtered_jobs = [j for j in jobs_data if _formation_ok(j)]
+
+    # Passe 1 : calcul des scores d'affinité bruts (sur les métiers filtrés)
     raw_job_scores = []
-    for job in jobs_data:
+    for job in filtered_jobs:
         raw_tf_idf_score = 0.0
         match_reasons = []
 
@@ -199,7 +225,7 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
     job_scores = []
     job_sectors_lower_cache = {
         job.get('rome', {}).get('code_rome'): [s.lower() for s in job.get('secteurs_activite', [])]
-        for job in jobs_data
+        for job in filtered_jobs
     }
 
     for item in raw_job_scores:

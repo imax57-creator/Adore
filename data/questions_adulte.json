@@ -7,7 +7,8 @@
     "skills_transfer": 2,
     "values": 2,
     "problem_solving": 1,
-    "interest": 1
+    "interest": 1,
+    "reconversion_pratique": 3
   },
   "dimensions": {
     "motivations": [
@@ -152,6 +153,38 @@
           { "text": "La maîtrise de langues étrangères.", "tags": [ { "type": "interest", "value": "Langues" }, { "type": "domain", "value": "lang_comm" } ] },
           { "text": "La compréhension des mécanismes économiques et financiers.", "tags": [ { "type": "domain", "value": "finance_business" }, { "type": "interest", "value": "Aime comprendre la société" } ] },
           { "text": "Des savoirs liés au droit, aux réglementations et aux normes.", "tags": [ { "type": "domain", "value": "law_admin" }, { "type": "quality", "value": "Rigueur" } ] }
+        ]
+      }
+    ],
+    "reconversion_pratique": [
+      {
+        "id": "aq13",
+        "question": "Pour vous reconvertir, quelle durée de formation êtes-vous prêt(e) à accepter ?",
+        "options": [
+          { "text": "Quelques semaines à 6 mois maximum.", "tags": [ { "type": "formation_constraint", "value": "court" } ] },
+          { "text": "Entre 6 mois et 2 ans, avec un financement type CPF.", "tags": [ { "type": "formation_constraint", "value": "moyen" } ] },
+          { "text": "Jusqu'à 4 ans si c'est vraiment nécessaire.", "tags": [ { "type": "formation_constraint", "value": "long" } ] },
+          { "text": "La durée n'est pas un frein pour moi.", "tags": [ { "type": "formation_constraint", "value": "any" } ] }
+        ]
+      },
+      {
+        "id": "aq14",
+        "question": "Quelle est votre mobilité géographique pour votre futur métier ?",
+        "options": [
+          { "text": "Je reste dans ma région, pas de déménagement envisagé.", "tags": [ { "type": "tag", "value": "mobile_local" } ] },
+          { "text": "Je peux me déplacer fréquemment en France sans déménager.", "tags": [ { "type": "tag", "value": "travel" } ] },
+          { "text": "Je suis prêt(e) à travailler à l'international.", "tags": [ { "type": "tag", "value": "mobile_international" } ] },
+          { "text": "Je préfère le télétravail autant que possible.", "tags": [ { "type": "tag", "value": "remote_work" } ] }
+        ]
+      },
+      {
+        "id": "aq15",
+        "question": "Par rapport au management d'équipe, quelle position vous correspond ?",
+        "options": [
+          { "text": "J'ai managé et je souhaite continuer dans un rôle de responsable.", "tags": [ { "type": "tag", "value": "management_yes" }, { "type": "quality", "value": "Leadership" } ] },
+          { "text": "J'ai managé, mais je préfère désormais un rôle d'expert(e) sans manager.", "tags": [ { "type": "tag", "value": "management_expert" }, { "type": "quality", "value": "Expertise" } ] },
+          { "text": "Je n'ai pas managé, mais je suis prêt(e) à le découvrir.", "tags": [ { "type": "tag", "value": "management_new" }, { "type": "quality", "value": "Leadership" } ] },
+          { "text": "Je préfère rester expert(e) sans responsabilité managériale.", "tags": [ { "type": "tag", "value": "management_expert" }, { "type": "quality", "value": "Expertise" } ] }
         ]
       }
     ]

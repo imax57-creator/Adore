@@ -52,7 +52,12 @@
     "structured_env",
     "sustainability_oriented",
     "teamwork",
-    "travel"
+    "travel",
+    "management_yes",
+    "management_new",
+    "management_expert",
+    "mobile_local",
+    "mobile_international"
   ],
   "qualities": [
     "Adaptabilité",
