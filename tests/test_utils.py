@@ -11,7 +11,7 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from app.logic.questionnaire_logic import calculate_recommendations
+from app.logic.questionnaire_logic import calculate_recommendations, calculate_reconversion_recommendations
 from app.data_manager import DataManager, DataError # Import DataManager
 
 # --- Data Loading Utilities ---
@@ -26,6 +26,8 @@ def load_all_data():
     if _data_manager_instance is None:
         try:
             _data_manager_instance = DataManager()
+            # Générer le cache de biais de popularité si absent (évite les faux biais en test)
+            _data_manager_instance.load_or_calculate_bias(num_simulations=200, top_n_check=10)
         except DataError as e:
             print(f"[ERREUR] Erreur lors du chargement des données : {e}", file=sys.stderr)
             sys.exit(1)
@@ -97,16 +99,84 @@ def find_option_with_tag(question, target_tag):
                 return option
     return None
 
-# --- Core Logic Wrapper ---
+def get_predefined_adulte_profiles():
+    """Profils adultes prédéfinis pour les tests de cohérence du mode reconversion."""
+    return {
+        "adulte_sante_social": {
+            "description": "Profil orienté santé, soin et relations humaines.",
+            "answers": {
+                "aq01": {"tags": [{"type": "interest", "value": "Solidarité & Soin"}, {"type": "tag", "value": "ethics_oriented"}]},
+                "aq02": {"tags": [{"type": "interest", "value": "Relations humaines"}, {"type": "skill", "value": "Communication"}]},
+                "aq06": {"tags": [{"type": "interest", "value": "Transmission"}, {"type": "skill", "value": "Communication"}]},
+                "aq09": {"tags": [{"type": "domain", "value": "health_social"}]},
+                "aq11": {"tags": [{"type": "skill", "value": "Soins"}, {"type": "quality", "value": "Empathie"}]},
+            },
+            "expected_jobs": ["infirmier", "aide-soignant", "ambulancier", "éducateur", "assistant social"],
+            "forbidden_jobs": ["développeur", "ingénieur informatique", "comptable"],
+        },
+        "adulte_tech_it": {
+            "description": "Profil orienté informatique, logique et analyse.",
+            "answers": {
+                "aq01": {"tags": [{"type": "interest", "value": "Défi"}, {"type": "quality", "value": "Apprentissage continu"}]},
+                "aq04": {"tags": [{"type": "quality", "value": "Logique"}, {"type": "quality", "value": "Esprit critique"}]},
+                "aq06": {"tags": [{"type": "skill", "value": "Analyse de données"}, {"type": "quality", "value": "Esprit critique"}]},
+                "aq09": {"tags": [{"type": "domain", "value": "it_digital"}]},
+                "aq05": {"tags": [{"type": "quality", "value": "Autonomie"}, {"type": "tag", "value": "independence"}]},
+            },
+            "expected_jobs": ["informatique", "développeur", "analyste", "ingénieur", "systèmes"],
+            "forbidden_jobs": ["aide-soignant", "cuisinier", "maçon"],
+        },
+        "adulte_management": {
+            "description": "Profil orienté management, finance et leadership.",
+            "answers": {
+                "aq02": {"tags": [{"type": "skill", "value": "Gestion de projet"}, {"type": "quality", "value": "Leadership"}]},
+                "aq06": {"tags": [{"type": "skill", "value": "Négociation"}, {"type": "skill", "value": "Communication"}]},
+                "aq09": {"tags": [{"type": "domain", "value": "finance_business"}]},
+                "aq15": {"tags": [{"type": "tag", "value": "management_yes"}, {"type": "quality", "value": "Leadership"}]},
+            },
+            "expected_jobs": ["directeur", "dirigeant", "responsable", "gestionnaire", "manager"],
+            "forbidden_jobs": ["aide-soignant", "artisan", "éleveur"],
+        },
+        "adulte_manuel_terrain": {
+            "description": "Profil orienté travail manuel, plein air et artisanat.",
+            "answers": {
+                "aq01": {"tags": [{"type": "interest", "value": "Nature"}, {"type": "tag", "value": "outdoor_work"}]},
+                "aq06": {"tags": [{"type": "interest", "value": "Travail manuel"}, {"type": "skill", "value": "Habileté manuelle"}]},
+                "aq09": {"tags": [{"type": "domain", "value": "crafts_manual"}]},
+                "aq07": {"tags": [{"type": "tag", "value": "physical_work"}]},
+            },
+            "expected_jobs": ["tapissier", "ébéniste", "agent", "éleveur", "artisan", "agricole"],
+            "forbidden_jobs": ["développeur", "directeur financier", "juriste"],
+        },
+    }
+
+
+# --- Core Logic Wrappers ---
 
 def run_suggestion_engine(user_profile, jobs_data, semantic_map, idf_map, tag_profile_freq, term_to_category_map, scoring_config=None):
-    """Wrapper pour exécuter le moteur de suggestion et retourner les résultats."""
+    """Wrapper pour exécuter le moteur de suggestion (mode jeune) et retourner les résultats."""
     if scoring_config is None:
-        # Charger la config par défaut si non fournie
         dm = _data_manager_instance or load_all_data()
         scoring_config = _data_manager_instance.scoring_config
     _, jobs, _, _, _, _, _ = calculate_recommendations(
         user_profile, jobs_data, semantic_map,
         idf_map, tag_profile_freq, term_to_category_map, scoring_config
+    )
+    return jobs
+
+
+def run_adulte_suggestion_engine(user_profile, jobs_data, semantic_map, idf_map, tag_profile_freq, term_to_category_map, scoring_config=None):
+    """Wrapper pour exécuter le moteur de suggestion (mode adulte) et retourner les résultats."""
+    dm = _data_manager_instance
+    if dm is None:
+        load_all_data()
+        dm = _data_manager_instance
+    if scoring_config is None:
+        scoring_config = dm.scoring_config
+    _, jobs, _, _, _, _, _ = calculate_reconversion_recommendations(
+        user_profile, jobs_data, semantic_map,
+        idf_map, tag_profile_freq, term_to_category_map, scoring_config,
+        job_education_map=dm.job_education_map,
+        rome_alias_map=dm.rome_alias_map,
     )
     return jobs

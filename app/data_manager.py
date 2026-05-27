@@ -358,38 +358,51 @@ class DataManager:
 
     def _calculate_job_popularity_bias(self, num_simulations=100, top_n_check=10):
         from collections import Counter
-        import random
-        from app.logic.questionnaire_logic import calculate_recommendations
+        from app.logic.questionnaire_logic import calculate_recommendations, calculate_reconversion_recommendations
         from app.logic.profile_utils import generate_random_profile
 
-        log.info(f"Starting job popularity bias calculation with {num_simulations} simulations...")
+        log.info(f"Starting job popularity bias calculation with {num_simulations} simulations (50% jeune, 50% adulte)...")
         job_frequency_counter = Counter()
-        
+        half = num_simulations // 2
+
         for i in range(num_simulations):
             if (i + 1) % 10 == 0:
                 log.info(f"Running simulation {i + 1}/{num_simulations}...")
-            
-            random_profile = generate_random_profile(self.questions_jeune)
 
-            try:
-                _, top_jobs_list, _, _, _, _, _ = calculate_recommendations(
-                    random_profile, self.jobs, self.semantic_map, self.idf,
-                    self.tag_profile_freq, self.term_to_category, self.scoring_config
-                )
-            except Exception as e:
-                log.error(f"'calculate_recommendations' failed during bias simulation: {e}")
-                top_jobs_list = []
+            use_adulte = i >= half
+            if use_adulte:
+                random_profile = generate_random_profile(self.questions_adulte)
+                try:
+                    _, top_jobs_list, _, _, _, _, _ = calculate_reconversion_recommendations(
+                        random_profile, self.jobs, self.semantic_map, self.idf,
+                        self.tag_profile_freq, self.term_to_category, self.scoring_config,
+                        job_education_map=self.job_education_map,
+                        rome_alias_map=self.rome_alias_map,
+                    )
+                except Exception as e:
+                    log.error(f"'calculate_reconversion_recommendations' failed during bias simulation: {e}")
+                    top_jobs_list = []
+            else:
+                random_profile = generate_random_profile(self.questions_jeune)
+                try:
+                    _, top_jobs_list, _, _, _, _, _ = calculate_recommendations(
+                        random_profile, self.jobs, self.semantic_map, self.idf,
+                        self.tag_profile_freq, self.term_to_category, self.scoring_config
+                    )
+                except Exception as e:
+                    log.error(f"'calculate_recommendations' failed during bias simulation: {e}")
+                    top_jobs_list = []
 
             if top_jobs_list:
                 for job_result in top_jobs_list[:top_n_check]:
                     job_rome_code = job_result.get('rome', {}).get('code_rome')
                     if job_rome_code:
                         job_frequency_counter[job_rome_code] += 1
-        
+
         self.job_popularity_bias = {}
         for rome_code, count in job_frequency_counter.items():
             self.job_popularity_bias[rome_code] = count / num_simulations
-        
+
         for job in self.jobs:
             job_rome_code = job.get('rome', {}).get('code_rome')
             job['_popularity_bias'] = self.job_popularity_bias.get(job_rome_code, 0.0)

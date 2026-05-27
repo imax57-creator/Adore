@@ -30,6 +30,7 @@ try:
     import test_bias_distribution
     import test_performance_load
     import test_job_coverage
+    import test_adulte_suggestions
 except ImportError as e:
     print(f"[ERREUR] Impossible d'importer un module de test : {e}")
     print("Veuillez vous assurer que tous les scripts de test sont bien dans le dossier /tests.")
@@ -45,6 +46,7 @@ TEST_SUITE = [
     ("Test de Biais de Distribution", test_bias_distribution.run_all_checks),
     ("Test de Performance en Charge", test_performance_load.run_all_checks),
     ("Test de Couverture des Métiers", test_job_coverage.run_all_checks),
+    ("Test du Mode Adulte (Reconversion)", test_adulte_suggestions.run_all_checks),
 ]
 
 # --- Moteur d'Exécution ---
