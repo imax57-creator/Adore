@@ -54,7 +54,7 @@ Les rapports HTML sont sauvegardés dans le dossier `orientation/`.
 ## Tests
 
 ```bash
-# Suite complète (7 modules) — rapport sauvegardé dans tests/
+# Suite complète (8 modules) — rapport sauvegardé dans tests/
 python run_all_tests.py
 
 # Module individuel
@@ -95,12 +95,13 @@ Adoré/
 │   └── templates/              # Templates Jinja2 pour le rapport HTML
 │
 ├── data/
-│   ├── jobs_rome_enriched.json         # Base de métiers (ROME v4.60, enrichie)
+│   ├── jobs_rome_enriched.json         # Base de métiers (ROME v4.60, enrichie — 1584 fiches)
 │   ├── questions_jeune_v2.json         # Questions du parcours jeune
 │   ├── questions_adulte.json           # Questions du parcours adulte
 │   ├── tags_master.json                # Taxonomie des tags
 │   ├── semantic_map.json               # Expansion sémantique des termes
-│   ├── rome_alias_map.json             # Alias des codes ROME
+│   ├── rome_alias_map.json             # Alias des codes ROME (code → code parent)
+│   ├── job_education_map.json          # Niveaux de formation requis par code ROME
 │   ├── navigation_secteurs.json        # Index de navigation par secteur
 │   ├── navigation_centres_interet.json # Index par centre d'intérêt
 │   ├── navigation_thematiques.json     # Index par thématique
