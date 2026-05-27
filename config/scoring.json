@@ -9,5 +9,9 @@
     "affinity_score": 0.6,
     "transferability_bonus": 0.4
   },
-  "popularity_bias_factor": 2.4
+  "popularity_bias_factor": 2.4,
+  "core_skill_boost": 1.8,
+  "savoir_etre_boost": 1.4,
+  "work_context_penalty_factor": 0.8,
+  "emergente_display_threshold": 0.12
 }

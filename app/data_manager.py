@@ -275,10 +275,18 @@ class DataManager:
                             normal_skills.append(libelle)
             job['_core_skills_text'] = " ".join(core_skills).lower()
             job['_normal_skills_text'] = " ".join(normal_skills).lower()
+            job['_core_skill_terms'] = set(job['_core_skills_text'].split())
+
+            # Calcul ratio Émergente
+            all_sf_items = [item for enjeu in savoir_faire_enjeux for item in enjeu.get('items', [])]
+            emergente_items = [item for item in all_sf_items if item.get('coeur_metier') == 'Émergente']
+            job['_emergente_ratio'] = len(emergente_items) / len(all_sf_items) if all_sf_items else 0.0
+            job['_emergente_competences'] = [item['libelle'] for item in emergente_items[:5]]
 
             savoir_etre_enjeux = competences_data.get('savoir_etre_professionnel', {}).get('enjeux', [])
             savoir_etre_items = savoir_etre_enjeux[0].get('items', []) if savoir_etre_enjeux else []
             job['_savoir_etre_text'] = " ".join([se.get('libelle', '') for se in savoir_etre_items]).lower()
+            job['_savoir_etre_terms'] = set(job['_savoir_etre_text'].split())
 
             savoirs_categories = competences_data.get('savoirs', {}).get('categories', [])
             savoirs_text = [item.get('libelle', '') for cat in savoirs_categories for item in cat.get('items', [])]
