@@ -42,3 +42,17 @@ Thumbs.db
 
 # Fichiers temporaires
 temp_*.py
+
+# Données source brutes ROME (37 Mo, reconstruites par les scripts)
+RefRomeJson/
+
+# Rapports générés dans orientation/ (données personnelles)
+orientation/*.html
+orientation/*.pdf
+
+# Configuration locale Claude Code
+.claude/
+
+# Notes personnelles
+feuille_de_route.txt
+README_ASSISTANT.md
