@@ -154,6 +154,11 @@ class ExplorerView(ctk.CTkFrame):
         self.item_widgets = []
         self.no_results_label = None
 
+        # Batch rendering state
+        self._batch_pending = []
+        self._batch_tab = None
+        self._batch_row = 0
+
         self.on_tab_change() # Affichage initial
 
     def on_tab_change(self, tab_name=None):
@@ -186,9 +191,14 @@ class ExplorerView(ctk.CTkFrame):
     def _display_current_level_items(self, items, title, push_to_history=True):
         scroll_frame = self.tab_scroll_frames[self.current_tab]
         scroll_frame.bind("<Configure>", self._update_item_labels_wraplength)
-        
+
+        # Cancel any in-flight batch from a previous call
+        self._batch_pending = []
+        self._batch_tab = self.current_tab
+        self._batch_row = 0
+
         # Clear previous widgets
-        for widget, _ in self.item_widgets: # Unpack the tuple
+        for widget, _ in self.item_widgets:
             widget.destroy()
         self.item_widgets = []
         if self.no_results_label:
@@ -206,47 +216,64 @@ class ExplorerView(ctk.CTkFrame):
         else:
             self.back_button.configure(state="disabled")
 
-        # Create and store new widgets with their ROME codes
-        for i, item in enumerate(items):
-            item_label = self.current_mode["get_item_label"](self, item)
-            # It's crucial to get the definitive ROME code here
-            if isinstance(item, dict):
-                code_rome = item.get('code') or item.get('rome', {}).get('code_rome')
-            else:
-                code_rome = None # It's a string (like a sector name), so no ROME code
+        # Clear the search entry immediately so it feels responsive
+        self.search_entry.delete(0, ctk.END)
 
-            command = lambda i=item: self.on_item_selected(i)
-            
-            item_frame = ctk.CTkFrame(scroll_frame, fg_color="transparent", corner_radius=5)
-            item_frame.grid(row=i, column=0, padx=5, pady=5, sticky="ew")
-            item_frame.grid_columnconfigure(0, weight=1)
+        # Schedule batch widget creation to avoid blocking the main thread
+        self._batch_pending = list(items)
+        self._create_next_batch()
 
-            item_label_widget = ctk.CTkLabel(
-                item_frame,
-                text=item_label,
-                font=ctk.CTkFont(size=16),
-                anchor="center",
-                justify="center",
-                wraplength=120
-            )
-            item_label_widget.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
+    def _create_item_widget(self, scroll_frame, item, row):
+        """Creates a single navigation item widget and appends it to item_widgets."""
+        item_label = self.current_mode["get_item_label"](self, item)
 
-            # Bind click event to the frame and label
-            item_frame.bind("<Button-1>", lambda event, i=item: self.on_item_selected(i))
-            item_label_widget.bind("<Button-1>", lambda event, i=item: self.on_item_selected(i))
+        item_frame = ctk.CTkFrame(scroll_frame, fg_color="transparent", corner_radius=5)
+        item_frame.grid(row=row, column=0, padx=5, pady=5, sticky="ew")
+        item_frame.grid_columnconfigure(0, weight=1)
 
-            # Add hover effect
-            item_frame.bind("<Enter>", lambda event, f=item_frame: f.configure(fg_color="gray25"))
-            item_frame.bind("<Leave>", lambda event, f=item_frame: f.configure(fg_color="transparent"))
-            item_label_widget.bind("<Enter>", lambda event, f=item_frame: f.configure(fg_color="gray25"))
-            item_label_widget.bind("<Leave>", lambda event, f=item_frame: f.configure(fg_color="transparent"))
+        item_label_widget = ctk.CTkLabel(
+            item_frame,
+            text=item_label,
+            font=ctk.CTkFont(size=16),
+            anchor="center",
+            justify="center",
+            wraplength=120
+        )
+        item_label_widget.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
-            # Propagate scroll events to the enclosing CTkScrollableFrame
-            self._bind_scroll_to([item_frame, item_label_widget], scroll_frame)
+        item_frame.bind("<Button-1>", lambda event, i=item: self.on_item_selected(i))
+        item_label_widget.bind("<Button-1>", lambda event, i=item: self.on_item_selected(i))
 
-            self.item_widgets.append((item_frame, item)) # Store the frame, not the label
-        
-        self._clear_search()
+        item_frame.bind("<Enter>", lambda event, f=item_frame: f.configure(fg_color="gray25"))
+        item_frame.bind("<Leave>", lambda event, f=item_frame: f.configure(fg_color="transparent"))
+        item_label_widget.bind("<Enter>", lambda event, f=item_frame: f.configure(fg_color="gray25"))
+        item_label_widget.bind("<Leave>", lambda event, f=item_frame: f.configure(fg_color="transparent"))
+
+        self._bind_scroll_to([item_frame, item_label_widget], scroll_frame)
+        self.item_widgets.append((item_frame, item))
+
+    def _create_next_batch(self, batch_size=30):
+        """Creates the next batch of item widgets, then reschedules itself until done."""
+        if self._batch_tab != self.current_tab:
+            # Tab changed while batch was in progress — discard
+            self._batch_pending = []
+            return
+
+        if not self._batch_pending:
+            # All items created — now apply filter so visibility is correct
+            self._perform_filter()
+            return
+
+        scroll_frame = self.tab_scroll_frames[self.current_tab]
+        batch = self._batch_pending[:batch_size]
+        self._batch_pending = self._batch_pending[batch_size:]
+
+        for item in batch:
+            self._create_item_widget(scroll_frame, item, self._batch_row)
+            self._batch_row += 1
+
+        # Yield to the event loop before creating the next batch
+        self.after(0, self._create_next_batch)
 
     def on_item_selected(self, item_data):
         current_mode = self.current_mode
@@ -347,7 +374,10 @@ class ExplorerView(ctk.CTkFrame):
 
     def _clear_search(self):
         self.search_entry.delete(0, ctk.END)
-        self._perform_filter()
+        # Don't filter while a batch is still being created — _create_next_batch
+        # will call _perform_filter() itself after the last batch.
+        if not self._batch_pending:
+            self._perform_filter()
 
     def _perform_filter(self):
         search_text = self.search_entry.get().lower()
