@@ -94,8 +94,15 @@ def run_all_checks():
     print("--- Test d'Intégrité Terminé ---\n")
     return overall_success, errors
 
+SEMANTIC_TAG_TYPES = {"quality", "interest", "skill"}
+
 def check_question_tags(questions_data, tags_master):
-    """Vérifie que tous les tags dans les questions existent dans tags_master."""
+    """Vérifie que les tags sémantiques dans les questions existent dans tags_master.
+
+    Les tags fonctionnels (work_context_pref, work_style, experience_sector,
+    formation_constraint, tag, domain) sont ignorés car ils ne sont pas des
+    entrées sémantiques destinées au scoring TF-IDF.
+    """
     errors = []
     master_tags = set()
     for category in tags_master.values():
@@ -105,8 +112,9 @@ def check_question_tags(questions_data, tags_master):
         q_id = question.get('id', 'ID inconnu')
         for option in question.get('options', []):
             for tag in option.get('tags', []):
+                tag_type = tag.get('type')
                 tag_value = tag.get('value')
-                if tag_value and tag_value not in master_tags:
+                if tag_type in SEMANTIC_TAG_TYPES and tag_value and tag_value not in master_tags:
                     errors.append(f"[Question {q_id}]: Le tag '{tag_value}' n'existe pas dans tags_master.json")
     return errors
 
