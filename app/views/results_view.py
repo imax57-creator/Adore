@@ -167,6 +167,8 @@ class ResultsView(ctk.CTkFrame):
                 job_button._text_label.configure(wraplength=120)
             job_button.configure(command=lambda j=job, b=job_button: self.show_job_details(j, b))
             job_button.pack(fill="x", padx=8, pady=2)
+            # Propagate scroll events to the job list scrollable frame
+            self._bind_scroll_to_listframe(job_button)
             self.job_buttons.append(job_button)
             if self.default_button_color is None:
                 self.default_button_color = job_button.cget("fg_color")
@@ -383,6 +385,17 @@ self.controller.active_questions)
                 for section in self.details_accordion.sections:
                     if isinstance(section.content_label, ctk.CTkLabel):
                         section.content_label.configure(wraplength=content_wrap)
+
+    def _bind_scroll_to_listframe(self, widget):
+        """Propagate mouse-wheel events from widget to the job-list scrollable frame."""
+        def _on_wheel(event):
+            if event.num == 4 or event.delta > 0:
+                self.job_list_frame._parent_canvas.yview_scroll(-1, "units")
+            elif event.num == 5 or event.delta < 0:
+                self.job_list_frame._parent_canvas.yview_scroll(1, "units")
+        widget.bind("<MouseWheel>", _on_wheel, add="+")
+        widget.bind("<Button-4>",   _on_wheel, add="+")
+        widget.bind("<Button-5>",   _on_wheel, add="+")
 
     def _update_wraplength(self, event):
         # event.width may be physical pixels; divide by 1.5 scaling to get CTk logical pixels

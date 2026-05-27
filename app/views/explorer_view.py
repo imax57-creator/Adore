@@ -125,10 +125,11 @@ class ExplorerView(ctk.CTkFrame):
             tab = self.tabview.add(tab_name)
             tab.grid_rowconfigure(0, weight=1)
             tab.grid_columnconfigure(0, weight=1)
-            scroll_frame = ctk.CTkScrollableFrame(tab, fg_color="transparent")
+            # height=1 prevents CTkScrollableFrame from trying to grow to fit all
+            # content; sticky="nsew" + grid weight expand it to the available space.
+            scroll_frame = ctk.CTkScrollableFrame(tab, fg_color="transparent", height=1)
             scroll_frame.grid(row=0, column=0, sticky="nsew")
             scroll_frame.grid_columnconfigure(0, weight=1)
-            scroll_frame.bind("<Configure>", self._update_item_labels_wraplength)
             self.tab_scroll_frames[tab_name] = scroll_frame
 
         self.right_panel = ctk.CTkScrollableFrame(self, fg_color="transparent")
@@ -150,7 +151,6 @@ class ExplorerView(ctk.CTkFrame):
         home_button.pack(side="left", padx=10)
 
         self._search_job = None
-        self._wraplength_job = None
         self.item_widgets = []
         self.no_results_label = None
 
@@ -185,7 +185,8 @@ class ExplorerView(ctk.CTkFrame):
 
     def _display_current_level_items(self, items, title, push_to_history=True):
         scroll_frame = self.tab_scroll_frames[self.current_tab]
-
+        scroll_frame.bind("<Configure>", self._update_item_labels_wraplength)
+        
         # Clear previous widgets
         for widget, _ in self.item_widgets: # Unpack the tuple
             widget.destroy()
@@ -239,6 +240,9 @@ class ExplorerView(ctk.CTkFrame):
             item_frame.bind("<Leave>", lambda event, f=item_frame: f.configure(fg_color="transparent"))
             item_label_widget.bind("<Enter>", lambda event, f=item_frame: f.configure(fg_color="gray25"))
             item_label_widget.bind("<Leave>", lambda event, f=item_frame: f.configure(fg_color="transparent"))
+
+            # Propagate scroll events to the enclosing CTkScrollableFrame
+            self._bind_scroll_to([item_frame, item_label_widget], scroll_frame)
 
             self.item_widgets.append((item_frame, item)) # Store the frame, not the label
         
@@ -400,19 +404,27 @@ class ExplorerView(ctk.CTkFrame):
         new_wraplength = max(200, int(logical_width) - 20)
         self.job_title.configure(wraplength=new_wraplength)
 
-    def _update_item_labels_wraplength(self, event=None):
-        if self._wraplength_job:
-            self.after_cancel(self._wraplength_job)
-        self._wraplength_job = self.after(50, self._do_update_item_labels_wraplength)
+    @staticmethod
+    def _bind_scroll_to(widgets, scrollable_frame):
+        """Propagate mouse-wheel events from each widget to scrollable_frame's canvas."""
+        def _on_wheel(event):
+            if event.num == 4 or event.delta > 0:
+                scrollable_frame._parent_canvas.yview_scroll(-1, "units")
+            elif event.num == 5 or event.delta < 0:
+                scrollable_frame._parent_canvas.yview_scroll(1, "units")
+        for w in widgets:
+            w.bind("<MouseWheel>", _on_wheel, add="+")
+            w.bind("<Button-4>",   _on_wheel, add="+")
+            w.bind("<Button-5>",   _on_wheel, add="+")
 
-    def _do_update_item_labels_wraplength(self):
-        self._wraplength_job = None
-        scroll_frame = self.tab_scroll_frames[self.current_tab]
+    def _update_item_labels_wraplength(self, event):
+        # event.width is physical px; divide by CTk scaling to get logical units
+        # Subtract item_frame padx(5*2=10) + label padx(10*2=20) = 30 logical px total
         try:
             scaling = ctk.ScalingTracker.get_window_scaling(self)
         except Exception:
             scaling = 1.5
-        logical_width = scroll_frame.winfo_width() / scaling
+        logical_width = event.width / scaling
         new_wraplength = max(100, int(logical_width) - 30)
         for widget, _ in self.item_widgets:
             label = widget.winfo_children()[0]

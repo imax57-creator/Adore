@@ -8,9 +8,30 @@ class Accordion(ctk.CTkFrame):
         self.sections = []
         self.row_counter = 0
         self.current_wraplength = 300  # Valeur par défaut initiale
-        
+
         # Écouter les événements de redimensionnement pour ajuster le wraplength
         self.bind("<Configure>", self._on_resize)
+        # Propagate scroll on the accordion frame itself (between sections)
+        self.bind("<MouseWheel>", self._on_mouse_scroll, add="+")
+        self.bind("<Button-4>",   self._on_mouse_scroll, add="+")
+        self.bind("<Button-5>",   self._on_mouse_scroll, add="+")
+
+    def _find_parent_scrollable(self):
+        parent = self.master
+        while parent:
+            if isinstance(parent, ctk.CTkScrollableFrame):
+                return parent
+            parent = parent.master
+        return None
+
+    def _on_mouse_scroll(self, event):
+        scrollable_parent = self._find_parent_scrollable()
+        if not scrollable_parent:
+            return
+        if event.num == 4 or event.delta > 0:
+            scrollable_parent._parent_canvas.yview_scroll(-1, "units")
+        elif event.num == 5 or event.delta < 0:
+            scrollable_parent._parent_canvas.yview_scroll(1, "units")
 
     def _on_resize(self, event):
         # event.width is in physical pixels; divide by CTk scaling to get logical units
