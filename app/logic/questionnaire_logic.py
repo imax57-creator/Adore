@@ -171,46 +171,59 @@ def calculate_reconversion_recommendations(user_profile, jobs_data, semantic_map
             for sub_term in term.split():
                 user_profile_terms[sub_term] += count
 
-    job_scores = []
-    
+    # Passe 1 : calcul des scores d'affinité bruts pour tous les métiers
+    raw_job_scores = []
     for job in jobs_data:
-        # --- 2. Calcul du score d'affinité (base) ---
         raw_tf_idf_score = 0.0
         match_reasons = []
-        
+
         for term, tf_count in user_profile_terms.items():
             if term in job.get('_search_terms_list', []):
                 category = term_to_category_map.get(term, "default")
                 weight = tag_category_weights.get(category, 1.0)
-                
                 term_score = tf_count * idf_map.get(term, 0.0)
                 raw_tf_idf_score += term_score * weight
                 match_reasons.append(f"Affinité avec '{term}' (score: {term_score * weight:.2f})")
 
         _n = job.get('_total_terms_count', 1)
-        normalized_affinity_score = raw_tf_idf_score / _n
+        raw_job_scores.append({
+            "job": job,
+            "affinity": raw_tf_idf_score / _n,
+            "match_reasons": match_reasons,
+        })
 
-        # --- 3. Calcul du bonus de transférabilité ---
-        transferability_bonus = 0.0
+    # Normalisation de l'affinité sur [0, 1] pour calibrer le bonus de transférabilité
+    max_affinity = max((item["affinity"] for item in raw_job_scores), default=1.0) or 1.0
+
+    # Passe 2 : combinaison affinité + transférabilité + pénalités
+    job_scores = []
+    job_sectors_lower_cache = {
+        job.get('rome', {}).get('code_rome'): [s.lower() for s in job.get('secteurs_activite', [])]
+        for job in jobs_data
+    }
+
+    for item in raw_job_scores:
+        job = item["job"]
+        match_reasons = item["match_reasons"]
+        normalized_affinity = item["affinity"] / max_affinity  # dans [0, 1]
+        _n = job.get('_total_terms_count', 1)
+
+        # --- 3. Calcul du bonus de transférabilité (normalisé) ---
+        transferability_score = 0.0
         if user_experience_sector and user_experience_sector != "aucun":
-            job_sectors = job.get('secteurs_activite', [])
-            # Le tag value est le libellé du secteur, donc on cherche une correspondance directe
-            if user_experience_sector.lower() in [s.lower() for s in job_sectors]:
-                transferability_bonus = transferability_weight # Appliquer le bonus défini dans la config
-                match_reasons.append(f"Bonus de transférabilité : Expérience dans le secteur '{user_experience_sector}'")
+            code = job.get('rome', {}).get('code_rome')
+            if user_experience_sector.lower() in job_sectors_lower_cache.get(code, []):
+                transferability_score = 1.0
+                match_reasons = match_reasons + [f"Bonus de transférabilité : secteur '{user_experience_sector}'"]
 
-        # --- 4. Combinaison des scores ---
-        # Le score final est une combinaison pondérée de l'affinité et du bonus de transférabilité
-        combined_score = (normalized_affinity_score * affinity_weight) + transferability_bonus
+        # --- 4. Combinaison pondérée (affinité et transférabilité dans [0, 1]) ---
+        combined_score = (normalized_affinity * affinity_weight) + (transferability_score * transferability_weight)
 
-        # --- 5. Application des pénalités de bruit de fond et de popularité ---
-        expected_raw = job.get('_expected_random_score', 0.0)
-        expected_normalized = expected_raw / _n
-
-        # Même logique que calculate_recommendations : pénalité adaptative via diviseur, sans soustraction hard.
+        # --- 5. Pénalités bruit de fond et popularité ---
+        expected_normalized = job.get('_expected_random_score', 0.0) / _n
         final_score = combined_score / (1 + popularity_bias_factor * expected_normalized)
         final_score /= (1 + popularity_bias_factor * job.get('_popularity_bias', 0.0))
-        
+
         job_scores.append({"job": job, "score": final_score, "match_reasons": match_reasons})
 
     # --- 6. Trier et filtrer les résultats ---
