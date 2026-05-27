@@ -267,6 +267,29 @@
           "tags": [ { "type": "quality", "value": "Autonomie" } ]
         }
       ]
+    },
+    {
+      "id": "q13",
+      "category": "work_context",
+      "question": "Où tu imagines travailler idéalement ?",
+      "options": [
+        {
+          "text": "Dans un bureau, en open space ou en télétravail.",
+          "tags": [{"type": "work_context_pref", "value": "indoor"}]
+        },
+        {
+          "text": "En extérieur, sur le terrain, dans la nature ou en déplacement.",
+          "tags": [{"type": "work_context_pref", "value": "outdoor"}]
+        },
+        {
+          "text": "En contact avec du public : clients, patients, élèves...",
+          "tags": [{"type": "work_context_pref", "value": "public"}]
+        },
+        {
+          "text": "Dans un atelier, un labo, une cuisine, un chantier.",
+          "tags": [{"type": "work_context_pref", "value": "atelier"}]
+        }
+      ]
     }
   ]
 }

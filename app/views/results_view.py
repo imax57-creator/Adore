@@ -162,7 +162,10 @@ class ResultsView(ctk.CTkFrame):
         self.job_buttons = [] # Clear the list before repopulating
         self.default_button_color = None # Reset default color
         for job in display_jobs:
-            job_button = ctk.CTkButton(self.job_list_frame, text=job.get('name', 'Titre manquant'), anchor="w")
+            button_label = job.get('name', 'Titre manquant')
+            if job.get('emergente_ratio', 0) >= 0.12:
+                button_label = button_label + " (Avenir)"
+            job_button = ctk.CTkButton(self.job_list_frame, text=button_label, anchor="w")
             if job_button._text_label:
                 job_button._text_label.configure(wraplength=120)
             job_button.configure(command=lambda j=job, b=job_button: self.show_job_details(j, b))
@@ -231,15 +234,24 @@ class ResultsView(ctk.CTkFrame):
         mobilites_possibles = mobilites_obj.get('possibles', [])
         mobilites_text = ""
         if mobilites_proches:
-            mobilites_text += "Évolutions proches:\n- "
-            mobilites_text += "\n- ".join([m.get('libelle', '') for m in mobilites_proches])
+            mobilites_text += "Accès rapide :\n- "
+            mobilites_text += "\n- ".join([m.get('rome_cible', '') for m in mobilites_proches])
         if mobilites_possibles:
             if mobilites_text: mobilites_text += "\n\n"
-            mobilites_text += "Passerelles possibles:\n- "
+            mobilites_text += "Avec formation :\n- "
             mobilites_text += "\n- ".join([p.get('rome_cible', '') for p in mobilites_possibles])
         if not mobilites_text:
             mobilites_text = "Non spécifiées"
         self.details_accordion.add_section("Pistes d'évolution", mobilites_text)
+
+        # Compétences d'avenir (Émergentes)
+        if job.get('emergente_ratio', 0) >= 0.12:
+            emergente_list = job.get('emergente_competences', [])
+            if emergente_list:
+                emergente_text = "- " + "\n- ".join(emergente_list)
+            else:
+                emergente_text = "Non spécifiées"
+            self.details_accordion.add_section("Compétences d'avenir", emergente_text)
 
         # Savoirs (from transformed data)
         savoirs_text = "Non spécifiés"
@@ -295,15 +307,12 @@ class ResultsView(ctk.CTkFrame):
             if savoir_etre:
                 qualities = savoir_etre[0].get('items', [])
 
-            # --- Transformation des mobilités (logique affinée) ---
+            # --- Transformation des mobilités (basée sur ordre_mobilite) ---
             mobilites_raw = job.get('mobilites', [])
             transformed_mobilites = {
-                'proches': [m for m in mobilites_raw if m.get('type') == 'proche'],
-                'possibles': [m for m in mobilites_raw if m.get('type') == 'possible']
+                'proches': [m for m in mobilites_raw if 1 <= m.get('ordre_mobilite', 99) <= 3],
+                'possibles': [m for m in mobilites_raw if 4 <= m.get('ordre_mobilite', 99) <= 6],
             }
-            # Comportement de secours si le champ 'type' n'est pas présent dans les données
-            if not transformed_mobilites['proches'] and not transformed_mobilites['possibles'] and mobilites_raw:
-                transformed_mobilites['possibles'] = mobilites_raw
 
             display_job = {
                 'name': job.get('rome', {}).get('intitule', 'N/A'),
@@ -316,7 +325,9 @@ class ResultsView(ctk.CTkFrame):
                 'savoirs': job.get('competences', {}).get('savoirs'),
                 'savoir_etre_professionnels': job.get('competences', {}).get('savoir_etre_professionnel'),
                 'work_context': job.get('contextes_travail'),
-                'secteurs_activite': job.get('secteurs_activite', [])
+                'secteurs_activite': job.get('secteurs_activite', []),
+                'emergente_ratio': job.get('_emergente_ratio', 0.0),
+                'emergente_competences': job.get('_emergente_competences', []),
             }
             display_jobs.append(display_job)
         return display_jobs

@@ -2,7 +2,7 @@
   "recipe": {
     "motivations": 1,
     "experience": 2,
-    "work_style": 2,
+    "work_style": 3,
     "contraintes": 1,
     "skills_transfer": 2,
     "values": 2,
@@ -79,6 +79,28 @@
       }
     ],
     "work_style": [
+      {
+        "id": "aq_work_context",
+        "question": "Dans quel environnement de travail vous épanouissez-vous le mieux ?",
+        "options": [
+          {
+            "text": "Bureau, open space ou télétravail.",
+            "tags": [{"type": "work_context_pref", "value": "indoor"}]
+          },
+          {
+            "text": "Terrain, extérieur ou déplacements fréquents.",
+            "tags": [{"type": "work_context_pref", "value": "outdoor"}]
+          },
+          {
+            "text": "Contact direct avec des personnes (clients, patients, élèves...).",
+            "tags": [{"type": "work_context_pref", "value": "public"}]
+          },
+          {
+            "text": "Environnement technique : atelier, labo, chantier, cuisine.",
+            "tags": [{"type": "work_context_pref", "value": "atelier"}]
+          }
+        ]
+      },
       {
         "id": "aq05",
         "question": "Vous êtes plus performant(e) quand...",
