@@ -1,0 +1,225 @@
+/*
+    THEME: ARCADE GOLD (v2)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --accent-gold: #ffd700;
+    --accent-orange: #ff9900;
+    --accent-white: #ffffff;
+    --dark-bg: #0d0221;
+    --deep-purple: #2d004f;
+    --card-bg: rgba(10, 10, 25, 0.6);
+    --base-text: #e8e8e8;
+    --glow-gold: rgba(255, 215, 0, 0.5);
+    --glow-orange: rgba(255, 153, 0, 0.5);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--deep-purple) 100%);
+    background-attachment: fixed;
+    color: var(--base-text);
+}
+
+/* Amélioration de la lisibilité des paragraphes */
+p {
+    color: var(--base-text) !important; 
+}
+
+.text-muted {
+    color: #adb5bd !important;
+}
+
+/* --- TITRES --- */
+h1 {
+    color: var(--accent-gold);
+    text-shadow: 0 0 7px var(--glow-gold), 0 0 10px var(--glow-gold);
+    font-weight: 700;
+}
+
+h2 {
+    color: var(--accent-orange);
+    text-shadow: 0 0 7px var(--glow-orange);
+    font-weight: 700;
+}
+
+h3, h4, h6 {
+    color: var(--accent-white);
+    font-weight: 500;
+}
+
+/* Titres des cartes résumé (h5) */
+.card-body h5 {
+    color: var(--accent-gold) !important;
+}
+
+.display-4 {
+    font-weight: 700;
+}
+
+/* --- MISE EN PAGE & CARTES --- */
+.container {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+}
+
+.card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.card-header {
+    background: rgba(255, 215, 0, 0.1);
+    border-bottom: 1px solid var(--accent-gold);
+}
+
+.card-header h2, .card-header h3 {
+    color: var(--accent-gold);
+    text-shadow: 0 0 5px var(--glow-gold);
+}
+
+/* --- ÉLÉMENTS INTERACTIFS --- */
+.list-group-item-action {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: var(--base-text);
+    transition: all 0.2s ease-in-out;
+}
+
+.list-group-item-action:hover, .list-group-item-action:focus {
+    background: rgba(255, 215, 0, 0.2);
+    color: white;
+    border-color: var(--accent-gold);
+}
+
+.list-group-item-action.active {
+    background-color: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--dark-bg);
+    font-weight: bold;
+    box-shadow: 0 0 15px var(--glow-gold);
+}
+
+/*
+=================================
+    ACCORDION THEME OVERRIDE
+=================================
+*/
+
+.accordion-item {
+    background-color: transparent;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    margin-bottom: 0.5rem;
+    border-radius: .375rem;
+}
+
+.accordion-header {
+    border-radius: .375rem;
+}
+
+.accordion-button {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--base-text);
+    font-weight: 700;
+    border-radius: .375rem;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem var(--glow-gold);
+    border-color: var(--accent-gold);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--accent-gold);
+    color: var(--dark-bg);
+    box-shadow: 0 0 15px var(--glow-gold);
+}
+
+/* Icon color for collapsed state */
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e8e8e8'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+/* Icon color for expanded state */
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230d0221'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    transform: rotate(-180deg);
+}
+
+.accordion-body {
+    padding: 1.25rem;
+}
+
+
+/* --- BADGES --- */
+
+/* Ce conteneur permettra aux badges d'aller à la ligne */
+.badge-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.5rem;
+    overflow-wrap: anywhere; /* Sécurité maximale contre le dépassement */
+}
+
+/* Force le retour à la ligne dans les badges, même avec Bootstrap */
+.badge {
+    display: inline-flex !important;   /* Pour que le texte puisse se répartir sur plusieurs lignes */
+    white-space: normal !important;    /* Autorise le texte à se couper */
+    word-break: break-word !important; /* Coupe les mots longs si nécessaire */
+    text-align: left !important;       /* Aligne le texte à gauche */
+    line-height: 1.4;                  /* Un peu plus d’espace entre les lignes */
+    max-width: 100%;                   /* Empêche le débordement horizontal */
+}
+
+.badge-container .badge {
+    flex-shrink: 0; /* Empêche les badges de se compresser */
+}
+
+.badge.rounded-pill {
+    font-size: 0.9rem;
+    padding: .5em .9em;
+    font-weight: 700;
+}
+
+/* Cœur de métier */
+.badge.bg-primary {
+    background-color: var(--accent-gold) !important;
+    color: #000 !important;
+}
+
+/* Compétence secondaire */
+.badge.bg-secondary {
+    background-color: var(--accent-white) !important;
+    color: #000 !important;
+}
+
+.badge.bg-info, .badge.bg-success, .badge.bg-warning {
+    color: #000 !important;
+}
+
+/* --- AUTRES --- */
+.alert-warning {
+    background-color: rgba(255, 215, 0, 0.2);
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.list-group-item {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--base-text);
+}
+
+.list-group-item strong {
+    color: var(--accent-gold);
+}

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environnements virtuels
+venv/
+.venv/
+env/
+.env/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs générés à l'exécution
+logs/*.log
+
+# Cache auto-généré (recalculé au démarrage)
+data/popularity_bias.json
+
+# Fichiers de sauvegarde
+*.bak
+
+# Profils utilisateurs générés (données personnelles)
+profiles/*
+!profiles/.gitkeep
+
+# Rapports de test générés
+tests/tests_report_*.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires
+temp_*.py

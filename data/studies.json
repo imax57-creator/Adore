@@ -1,0 +1,99 @@
+
+{
+  "bac_generaux": [
+    {
+      "id": "bac_gen",
+      "name": "Baccalauréat Général",
+      "duration": "3 ans (Seconde, Première, Terminale)",
+      "description": "Le bac général prépare principalement à la poursuite d'études supérieures longues (Université, classes préparatoires, écoles spécialisées). L'élève choisit des enseignements de spécialité en Première et Terminale pour colorer son parcours.",
+      "domains": ["Tous les domaines"],
+      "job_examples": ["Prépare à tout type de métier après des études supérieures : ingénieur, médecin, avocat, chercheur, professeur, etc."]
+    }
+  ],
+  "bac_technologiques": [
+    {
+      "id": "bac_stmg",
+      "name": "Bac STMG (Sciences et Technologies du Management et de la Gestion)",
+      "duration": "2 ans (Première, Terminale)",
+      "description": "Pour ceux qui s'intéressent à la gestion d'entreprise, au commerce, à la communication et aux ressources humaines.",
+      "domains": ["Économie, Commerce et Gestion", "Communication"],
+      "job_examples": ["Comptable, commercial, assistant de manager, chargé de communication. Poursuite en BTS, BUT ou Licence pro."]
+    },
+    {
+      "id": "bac_sti2d",
+      "name": "Bac STI2D (Sciences et Technologies de l'Industrie et du Développement Durable)",
+      "duration": "2 ans (Première, Terminale)",
+      "description": "Pour les élèves attirés par l'innovation technologique, l'ingénierie, l'énergie et l'environnement.",
+      "domains": ["Sciences, Recherche et Technologies", "Informatique, Numérique et Télécoms", "Environnement"],
+      "job_examples": ["Technicien supérieur, développeur, dessinateur-projeteur, ingénieur (après école). Poursuite en BUT, BTS, ou école d'ingénieurs."]
+    },
+    {
+      "id": "bac_std2a",
+      "name": "Bac STD2A (Sciences et Technologies du Design et des Arts Appliqués)",
+      "duration": "2 ans (Première, Terminale)",
+      "description": "Destiné aux créatifs qui veulent concevoir des objets, des espaces, des vêtements ou des supports de communication visuelle.",
+      "domains": ["Arts, Culture et Création"],
+      "job_examples": ["Designer graphique, designer produit, architecte d'intérieur, styliste. Poursuite en DN MADE, écoles d'art."]
+    },
+    {
+      "id": "bac_st2s",
+      "name": "Bac ST2S (Sciences et Technologies de la Santé et du Social)",
+      "duration": "2 ans (Première, Terminale)",
+      "description": "Pour ceux qui sont intéressés par les relations humaines et le travail dans les secteurs du social et du paramédical.",
+      "domains": ["Santé, Social et Soin"],
+      "job_examples": ["Infirmier, éducateur spécialisé, assistant social. Poursuite en IFSI (école d'infirmiers), BTS, BUT Carrières Sociales."]
+    }
+  ],
+  "etudes_courtes": [
+    {
+      "id": "bts",
+      "name": "BTS (Brevet de Technicien Supérieur)",
+      "duration": "2 ans",
+      "description": "Formation professionnalisante qui permet une insertion rapide sur le marché du travail ou une poursuite d'études (Licence pro). Très appréciée des entreprises.",
+      "domains": ["Tous les domaines techniques et tertiaires"],
+      "job_examples": ["Technicien supérieur dans l'industrie, développeur web, commercial, assistant de direction, diététicien."]
+    },
+    {
+      "id": "but",
+      "name": "BUT (Bachelor Universitaire de Technologie)",
+      "duration": "3 ans",
+      "description": "Formation universitaire qui délivre le grade de Licence. Elle allie théorie et pratique avec une forte dimension professionnelle (stages, projets).",
+      "domains": ["Tous les domaines techniques et tertiaires"],
+      "job_examples": ["Chargé de projet, développeur full-stack, responsable logistique, gestionnaire de paie, animateur socioculturel."]
+    }
+  ],
+  "etudes_longues": [
+    {
+      "id": "licence",
+      "name": "Licence Universitaire",
+      "duration": "3 ans",
+      "description": "Formation générale et théorique qui prépare à la poursuite d'études en Master. Demande une grande autonomie.",
+      "domains": ["Sciences, Arts, Langues, Droit, Économie, etc."],
+      "job_examples": ["Professeur, chercheur, juriste, psychologue, journaliste (après un Master)."]
+    },
+    {
+      "id": "master",
+      "name": "Master Universitaire",
+      "duration": "2 ans (après une Licence)",
+      "description": "Spécialisation après la Licence, permettant d'acquérir une expertise dans un domaine précis. Indispensable pour de nombreux métiers de cadres.",
+      "domains": ["Tous les domaines"],
+      "job_examples": ["Chef de projet, ingénieur de recherche, avocat, directeur des ressources humaines, conservateur de musée."]
+    },
+    {
+      "id": "ingenieur",
+      "name": "Cycle d'Ingénieur",
+      "duration": "5 ans (ou 3 ans après une prépa/BUT/BTS)",
+      "description": "Formation scientifique et technique de haut niveau qui mène au titre d'ingénieur. Très recherchée sur le marché du travail.",
+      "domains": ["Sciences, Recherche et Technologies", "Informatique", "Environnement", "Transport"],
+      "job_examples": ["Ingénieur en aéronautique, ingénieur en génie civil, ingénieur en informatique, chef de projet industriel."]
+    },
+    {
+      "id": "medecine",
+      "name": "Études de Santé (PASS/LAS)",
+      "duration": "6 à 12 ans",
+      "description": "Parcours très sélectif menant aux métiers de médecin, pharmacien, dentiste, sage-femme ou kinésithérapeute.",
+      "domains": ["Santé, Social et Soin"],
+      "job_examples": ["Médecin généraliste, chirurgien, pharmacien d'officine, sage-femme, kinésithérapeute."]
+    }
+  ]
+}

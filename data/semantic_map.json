@@ -1,0 +1,876 @@
+{
+  "Aime construire": [
+    "aime construire",
+    "bâtir",
+    "assembler",
+    "réaliser",
+    "créer",
+    "bricoler",
+    "construction",
+    "assemblage",
+    "création",
+    "bricolage"
+  ],
+  "Aime comprendre la société": [
+    "aime comprendre la société",
+    "sociologie",
+    "observer",
+    "analyser les comportements",
+    "interactions sociales",
+    "étudier le monde",
+    "sociologique",
+    "social",
+    "comportemental",
+    "analyser"
+  ],
+  "Ambition": [
+    "ambition",
+    "réussite",
+    "motivation",
+    "détermination",
+    "objectif",
+    "dépassement de soi",
+    "carrière",
+    "ambitieux",
+    "motivé",
+    "déterminé"
+  ],
+  "Anglais": [
+    "anglais",
+    "langue étrangère",
+    "communication",
+    "anglais oral",
+    "anglais écrit",
+    "bilingue",
+    "anglophone"
+  ],
+  "Analyse de données": [
+    "analyse de données",
+    "statistiques",
+    "big data",
+    "interprétation",
+    "modélisation",
+    "tableaux",
+    "analyser",
+    "statistique",
+    "modéliser",
+    "interpréter"
+  ],
+  "Analyse sociale": [
+    "analyse sociale",
+    "sociologie",
+    "comportements",
+    "étudier la société",
+    "observation",
+    "relations humaines",
+    "sociologique",
+    "social",
+    "comportemental"
+  ],
+  "Apprentissage continu": [
+    "apprentissage continu",
+    "formation",
+    "progresser",
+    "développement personnel",
+    "s’informer",
+    "se former",
+    "évolution",
+    "apprendre"
+  ],
+  "Apprentissage structuré": [
+    "apprentissage structuré",
+    "méthode",
+    "pédagogie",
+    "organisation",
+    "progression",
+    "plan d’étude",
+    "structuré",
+    "structurer"
+  ],
+  "Arts": [
+    "arts",
+    "expression artistique",
+    "peinture",
+    "musique",
+    "théâtre",
+    "création",
+    "artistique"
+  ],
+  "Autonomie": [
+    "autonomie",
+    "indépendance",
+    "initiative",
+    "responsabilité",
+    "autogestion",
+    "travailler seul",
+    "autonome",
+    "indépendant"
+  ],
+  "Biologie": [
+    "biologie",
+    "sciences",
+    "vivant",
+    "nature",
+    "organismes",
+    "expériences",
+    "biologique"
+  ],
+  "Chimie": [
+    "chimie",
+    "réactions",
+    "laboratoire",
+    "molécules",
+    "sciences expérimentales",
+    "chimique"
+  ],
+  "Communication": [
+    "communication",
+    "exprimer",
+    "dialogue",
+    "écoute",
+    "message",
+    "interaction",
+    "communiquer",
+    "communicant"
+  ],
+  "Communication digitale": [
+    "communication digitale",
+    "réseaux sociaux",
+    "marketing digital",
+    "stratégie en ligne",
+    "publicité",
+    "contenu",
+    "digital"
+  ],
+  "Conceptualisation": [
+    "conceptualisation",
+    "concevoir",
+    "idée",
+    "schématiser",
+    "visualiser",
+    "penser en abstrait",
+    "conceptuel"
+  ],
+  "Confiance": [
+    "confiance",
+    "assurance",
+    "estime de soi",
+    "affirmation",
+    "sécurité",
+    "croire en soi",
+    "confiant"
+  ],
+  "Créativité": [
+    "créativité",
+    "création",
+    "inventivité",
+    "imaginer",
+    "concevoir",
+    "innover",
+    "artistique",
+    "design",
+    "créatif",
+    "créative"
+  ],
+  "Créativité visuelle": [
+    "créativité visuelle",
+    "design graphique",
+    "illustration",
+    "imagination",
+    "arts visuels",
+    "esthétique"
+  ],
+  "Création artistique": [
+    "création artistique",
+    "art",
+    "peinture",
+    "sculpture",
+    "dessin",
+    "expression"
+  ],
+  "Culture": [
+    "culture",
+    "connaissance",
+    "patrimoine",
+    "arts",
+    "traditions",
+    "savoir"
+  ],
+  "Culture générale": [
+    "culture générale",
+    "connaissance",
+    "savoirs",
+    "histoire",
+    "actualité",
+    "arts"
+  ],
+  "Curiosité": [
+    "curiosité",
+    "découverte",
+    "apprendre",
+    "questionner",
+    "explorer",
+    "soif de savoir",
+    "investigation"
+  ],
+  "Défi": [
+    "défi",
+    "challenge",
+    "surmonter",
+    "objectif ambitieux",
+    "dépassement de soi",
+    "compétition"
+  ],
+  "Découverte": [
+    "découverte",
+    "exploration",
+    "apprendre",
+    "nouveauté",
+    "curiosité",
+    "innovation"
+  ],
+  "Développement durable": [
+    "développement durable",
+    "écologie",
+    "environnement",
+    "responsabilité écologique",
+    "transition énergétique",
+    "avenir durable"
+  ],
+  "Empathie": [
+    "empathie",
+    "écoute",
+    "compréhension",
+    "bienveillance",
+    "sensibilité",
+    "se mettre à la place de l’autre",
+    "patient",
+    "relationnel"
+  ],
+  "EPS": [
+    "eps",
+    "sport",
+    "activité physique",
+    "éducation physique",
+    "santé"
+  ],
+  "Entrepreneuriat": [
+    "entrepreneuriat",
+    "créer une entreprise",
+    "innover",
+    "prendre des risques",
+    "gestion",
+    "autonomie"
+  ],
+  "Esprit critique": [
+    "esprit critique",
+    "analyse",
+    "jugement",
+    "évaluer",
+    "objectivité",
+    "remise en question"
+  ],
+  "Esprit entrepreneurial": [
+    "esprit entrepreneurial",
+    "initiative",
+    "prendre des risques",
+    "innover",
+    "entreprendre",
+    "créer un projet",
+    "gestion d’entreprise"
+  ],
+  "Esthétique": [
+    "esthétique",
+    "beauté",
+    "harmonie",
+    "style",
+    "design",
+    "goût artistique"
+  ],
+  "Expérimentation": [
+    "expérimentation",
+    "tester",
+    "essai",
+    "recherche",
+    "innovation",
+    "méthode scientifique"
+  ],
+  "Expression": [
+    "expression",
+    "s’exprimer",
+    "partager ses idées",
+    "communication",
+    "créativité",
+    "style personnel"
+  ],
+  "Flexibilité": [
+    "flexibilité",
+    "souplesse",
+    "modularité",
+    "changement",
+    "adaptabilité",
+    "polyvalence"
+  ],
+  "Français": [
+    "français",
+    "langue",
+    "littérature",
+    "lecture",
+    "expression écrite"
+  ],
+  "Gestion de projet": [
+    "gestion de projet",
+    "planifier",
+    "organiser",
+    "coordonner",
+    "management",
+    "atteindre des objectifs"
+  ],
+  "Gestion du stress": [
+    "gestion du stress",
+    "calme",
+    "maîtrise de soi",
+    "résilience",
+    "contrôle émotionnel",
+    "relativiser"
+  ],
+  "Gestion du temps": [
+    "gestion du temps",
+    "planification",
+    "efficacité",
+    "priorités",
+    "organisation",
+    "optimiser son agenda"
+  ],
+  "Habileté manuelle": [
+    "habileté manuelle",
+    "dextérité",
+    "précision",
+    "artisanat",
+    "bricolage",
+    "gestes techniques"
+  ],
+  "Habileté technique": [
+    "habileté technique",
+    "maîtrise",
+    "compétence",
+    "technologie",
+    "ingénierie",
+    "outils"
+  ],
+  "Histoire": [
+    "histoire",
+    "passé",
+    "civilisations",
+    "mémoire collective",
+    "patrimoine",
+    "événements"
+  ],
+  "Histoire-Géo": [
+    "histoire-géo",
+    "histoire",
+    "géographie",
+    "civilisations",
+    "société"
+  ],
+  "Innovation": [
+    "innovation",
+    "innover",
+    "nouveauté",
+    "technologie",
+    "changer",
+    "créativité appliquée"
+  ],
+  "Intuition": [
+    "intuition",
+    "instinct",
+    "ressenti",
+    "perception",
+    "pressentiment",
+    "sixième sens"
+  ],
+  "Justice sociale": [
+    "justice sociale",
+    "égalité",
+    "équité",
+    "droits humains",
+    "solidarité",
+    "inclusion"
+  ],
+  "Langues": [
+    "langues",
+    "communication",
+    "traduction",
+    "multilingue",
+    "interculturalité",
+    "expression"
+  ],
+  "Lecture": [
+    "lecture",
+    "livres",
+    "littérature",
+    "apprentissage",
+    "imagination",
+    "savoir"
+  ],
+  "Leadership": [
+    "leadership",
+    "diriger",
+    "inspirer",
+    "motiver",
+    "prise de décision",
+    "responsabilité",
+    "vision"
+  ],
+  "Maîtrise des logiciels (Suite Adobe)": [
+    "maîtrise des logiciels (suite adobe)",
+    "photoshop",
+    "illustrator",
+    "indesign",
+    "création graphique",
+    "retouche photo",
+    "montage"
+  ],
+  "Mathématiques": [
+    "mathématiques",
+    "maths",
+    "calcul",
+    "logique",
+    "algèbre",
+    "géométrie",
+    "statistiques"
+  ],
+  "Mémoire": [
+    "mémoire",
+    "rappel",
+    "souvenir",
+    "retenir",
+    "concentration",
+    "apprentissage"
+  ],
+  "Négociation": [
+    "négociation",
+    "accord",
+    "discussion",
+    "médiation",
+    "transaction",
+    "compromis"
+  ],
+  "Nature": [
+    "nature",
+    "écologie",
+    "animaux",
+    "environnement",
+    "plein air",
+    "respect de la planète"
+  ],
+  "Observation": [
+    "observation",
+    "regarder",
+    "analyser",
+    "étudier",
+    "examiner",
+    "attention"
+  ],
+  "Optimisation": [
+    "optimisation",
+    "amélioration",
+    "efficacité",
+    "performance",
+    "rationalisation",
+    "maximiser"
+  ],
+  "Optimisme": [
+    "optimisme",
+    "positif",
+    "espoir",
+    "enthousiasme",
+    "motivation",
+    "voir le bon côté"
+  ],
+  "Patience": [
+    "patience",
+    "attente",
+    "persévérer",
+    "calme",
+    "tolérance",
+    "maîtrise"
+  ],
+  "Pensée critique": [
+    "pensée critique",
+    "analyse",
+    "évaluer",
+    "objectivité",
+    "remise en question",
+    "jugement"
+  ],
+  "Performance": [
+    "performance",
+    "efficacité",
+    "résultats",
+    "réussite",
+    "excellence",
+    "productivité"
+  ],
+  "Perfectionnisme": [
+    "perfectionnisme",
+    "détail",
+    "exigence",
+    "précision",
+    "minutie",
+    "atteindre l’excellence"
+  ],
+  "Persévérance": [
+    "persévérance",
+    "endurance",
+    "détermination",
+    "continuer",
+    "ne pas abandonner",
+    "résilience",
+    "tenir bon"
+  ],
+  "Philosophie": [
+    "philosophie",
+    "réflexion",
+    "pensée",
+    "concepts",
+    "argumentation"
+  ],
+  "Physique": [
+    "physique",
+    "sciences",
+    "énergie",
+    "mécanique",
+    "optique"
+  ],
+  "Physique-Chimie": [
+    "physique-chimie",
+    "sciences expérimentales",
+    "formules",
+    "expériences",
+    "laboratoire"
+  ],
+  "Pragmatisme": [
+    "pragmatisme",
+    "réalisme",
+    "efficacité",
+    "solutions concrètes",
+    "pratique",
+    "terre-à-terre"
+  ],
+  "Précision": [
+    "précision",
+    "exactitude",
+    "justesse",
+    "rigueur",
+    "minutie",
+    "détail"
+  ],
+  "Pratique": [
+    "pratique",
+    "application",
+    "mise en œuvre",
+    "concret",
+    "expérience",
+    "terrain"
+  ],
+  "Prise d'initiative": [
+    "prise d'initiative",
+    "oser",
+    "agir",
+    "proactivité",
+    "autonomie",
+    "entreprendre"
+  ],
+  "Programmation": [
+    "programmation",
+    "coder",
+    "développement",
+    "logiciels",
+    "algorithmes",
+    "informatique"
+  ],
+  "Prudence": [
+    "prudence",
+    "vigilance",
+    "anticiper",
+    "réfléchir avant d’agir",
+    "sécurité",
+    "prévention"
+  ],
+  "Rédaction": [
+    "rédaction",
+    "écriture",
+    "rédiger",
+    "texte",
+    "article",
+    "communication écrite"
+  ],
+  "Rédaction scientifique": [
+    "rédaction scientifique",
+    "publier",
+    "rapport",
+    "étude",
+    "mémoire",
+    "thèse"
+  ],
+  "Reconnaissance": [
+    "reconnaissance",
+    "appréciation",
+    "valorisation",
+    "estime",
+    "gratitude",
+    "notoriété"
+  ],
+  "Recherche d'information": [
+    "recherche d'information",
+    "documentation",
+    "collecter des données",
+    "analyse",
+    "sources",
+    "investigation"
+  ],
+  "Recherche de feedback": [
+    "recherche de feedback",
+    "retours",
+    "évaluation",
+    "amélioration",
+    "avis",
+    "réajustement"
+  ],
+  "Responsabilité": [
+    "responsabilité",
+    "engagement",
+    "fiabilité",
+    "devoir",
+    "assumer",
+    "conscience professionnelle"
+  ],
+  "Résilience": [
+    "résilience",
+    "rebondir",
+    "résistance",
+    "tenir bon",
+    "force intérieure",
+    "s’adapter après une difficulté"
+  ],
+  "Réactivité": [
+    "réactivité",
+    "rapidité",
+    "efficacité",
+    "agilité",
+    "répondre vite",
+    "adaptation immédiate"
+  ],
+  "Réflexion": [
+    "réflexion",
+    "penser",
+    "analyser",
+    "méditation",
+    "raisonnement",
+    "prise de recul"
+  ],
+  "Résolution de problèmes": [
+    "résolution de problèmes",
+    "trouver des solutions",
+    "ingéniosité",
+    "analyse",
+    "dépannage",
+    "créativité appliquée"
+  ],
+  "Rigueur": [
+    "rigueur",
+    "précision",
+    "normes",
+    "méthode",
+    "procédure",
+    "contrôle qualité",
+    "respecter les règles"
+  ],
+  "Robotique & IA": [
+    "robotique & ia",
+    "technologie",
+    "intelligence artificielle",
+    "automatisation",
+    "algorithmes",
+    "innovation"
+  ],
+  "Sang-froid": [
+    "sang-froid",
+    "calme",
+    "lucidité",
+    "maîtrise de soi",
+    "garder la tête froide",
+    "contrôle émotionnel"
+  ],
+  "Santé": [
+    "santé",
+    "bien-être",
+    "soins",
+    "hygiène de vie",
+    "prévention",
+    "équilibre"
+  ],
+  "Sens de l'esthétique": [
+    "sens de l'esthétique",
+    "beauté",
+    "harmonie",
+    "style",
+    "design",
+    "goût artistique"
+  ],
+  "Sens de l'observation": [
+    "sens de l'observation",
+    "attention",
+    "détails",
+    "observer",
+    "analyse visuelle",
+    "vigilance"
+  ],
+  "Soins": [
+    "soins",
+    "santé",
+    "aider",
+    "prendre en charge",
+    "bien-être",
+    "médical"
+  ],
+  "Solidarité & Soin": [
+    "solidarité & soin",
+    "entraide",
+    "aider",
+    "soigner",
+    "écoute",
+    "soutien",
+    "bienveillance",
+    "accompagner",
+    "soutenir",
+    "guider",
+    "soin",
+    "soins",
+    "santé",
+    "patient",
+    "curatif",
+    "palliative"
+  ],
+  "Sport": [
+    "sport",
+    "activité physique",
+    "compétition",
+    "entraîner",
+    "performance",
+    "esprit d’équipe",
+    "santé"
+  ],
+  "ST2S": [
+    "st2s",
+    "sciences sanitaires",
+    "social",
+    "soins",
+    "santé"
+  ],
+  "STD2A": [
+    "std2a",
+    "arts appliqués",
+    "design",
+    "créativité",
+    "esthétique"
+  ],
+  "Stabilité": [
+    "stabilité",
+    "sécurité",
+    "équilibre",
+    "confiance",
+    "durabilité",
+    "ancrage"
+  ],
+  "SVT": [
+    "svt",
+    "sciences de la vie",
+    "terre",
+    "biologie",
+    "géologie"
+  ],
+  "Technologie": [
+    "technologie",
+    "outils numériques",
+    "innovation",
+    "informatique",
+    "robotique",
+    "intelligence artificielle"
+  ],
+  "Technologie visuelle": [
+    "technologie visuelle",
+    "graphisme",
+    "vidéo",
+    "animation",
+    "réalité augmentée",
+    "outils visuels"
+  ],
+  "Tolérance à l’incertitude": [
+    "tolérance à l’incertitude",
+    "accepter le risque",
+    "gérer l’imprévu",
+    "adaptabilité",
+    "résilience",
+    "zone d’inconfort"
+  ],
+  "Transmission": [
+    "transmission",
+    "partage",
+    "enseigner",
+    "savoir",
+    "héritage",
+    "formation",
+    "former",
+    "accompagner"
+  ],
+  "Travail d'équipe": [
+    "travail d'équipe",
+    "collaboration",
+    "coopération",
+    "synergie",
+    "entraide",
+    "esprit collectif"
+  ],
+  "Travail manuel": [
+    "travail manuel",
+    "artisanat",
+    "fabriquer",
+    "bricolage",
+    "construction",
+    "habileté"
+  ],
+  "Vision": [
+    "vision",
+    "perspective",
+    "anticipation",
+    "projection",
+    "clairvoyance",
+    "avoir un objectif"
+  ],
+  "Voyages": [
+    "voyages",
+    "découverte",
+    "aventure",
+    "exploration",
+    "cultures",
+    "monde"
+  ],
+  "Énergie & transition écologique": [
+    "énergie & transition écologique",
+    "écologie",
+    "renouvelable",
+    "durabilité",
+    "climat",
+    "avenir vert"
+  ],
+  "Équité": [
+    "équité",
+    "justice",
+    "égalité",
+    "respect",
+    "équilibre",
+    "droits"
+  ]
+}

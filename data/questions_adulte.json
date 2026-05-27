@@ -1,0 +1,159 @@
+{
+  "recipe": {
+    "motivations": 1,
+    "experience": 2,
+    "work_style": 2,
+    "contraintes": 1,
+    "skills_transfer": 2,
+    "values": 2,
+    "problem_solving": 1,
+    "interest": 1
+  },
+  "dimensions": {
+    "motivations": [
+      {
+        "id": "aq01",
+        "question": "Quelle est la raison principale qui vous pousse à envisager une reconversion ?",
+        "options": [
+          { "text": "Rechercher un métier avec plus de sens, plus aligné avec mes valeurs.", "tags": [ { "type": "interest", "value": "Solidarité & Soin" }, { "type": "tag", "value": "ethics_oriented" } ] },
+          { "text": "Trouver un meilleur équilibre entre vie pro et vie perso.", "tags": [ { "type": "interest", "value": "Stabilité" }, { "type": "tag", "value": "stable_env" } ] },
+          { "text": "Augmenter mes revenus et mes perspectives de carrière.", "tags": [ { "type": "interest", "value": "Revenus" }, { "type": "quality", "value": "Ambition" } ] },
+          { "text": "Développer de nouvelles compétences et relever de nouveaux défis.", "tags": [ { "type": "interest", "value": "Défi" }, { "type": "quality", "value": "Apprentissage continu" } ] }
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "id": "aq_experience_sector",
+        "type": "dynamic_sector_choice",
+        "question": "Quel a été votre principal secteur d'activité jusqu'à présent ?",
+        "options": [
+          { "text": "Secteur A (généré dynamiquement)", "tags": [ { "type": "experience_sector", "value": "placeholder_a" } ] },
+          { "text": "Secteur B (généré dynamiquement)", "tags": [ { "type": "experience_sector", "value": "placeholder_b" } ] }
+        ]
+      },
+      {
+        "id": "aq02",
+        "question": "Dans vos expériences passées, quel type de tâche vous apportait le plus de satisfaction ?",
+        "options": [
+          { "text": "La gestion de projets complexes, la planification et la coordination.", "tags": [ { "type": "skill", "value": "Gestion de projet" }, { "type": "quality", "value": "Organisation" }, { "type": "quality", "value": "Leadership" } ] },
+          { "text": "La résolution de problèmes techniques ou analytiques ardus.", "tags": [ { "type": "interest", "value": "Résolution de problèmes" }, { "type": "quality", "value": "Logique" }, { "type": "quality", "value": "Esprit critique" } ] },
+          { "text": "L'interaction avec les clients, le conseil ou la formation.", "tags": [ { "type": "interest", "value": "Relations humaines" }, { "type": "tag", "value": "customer_facing" }, { "type": "skill", "value": "Communication" } ] },
+          { "text": "La création, la conception de nouvelles idées ou l'amélioration de l'existant.", "tags": [ { "type": "quality", "value": "Créativité" }, { "type": "interest", "value": "Innovation" }, { "type": "skill", "value": "Expression" } ] }
+        ]
+      }
+    ],
+    "contraintes": [
+      {
+        "id": "aq03",
+        "question": "Votre environnement de travail idéal serait plutôt...",
+        "options": [
+          { "text": "Un bureau calme, favorisant la concentration.", "tags": [ { "type": "tag", "value": "office_work" }, { "type": "tag", "value": "solo_work" } ] },
+          { "text": "En extérieur, sur le terrain, au contact des éléments.", "tags": [ { "type": "tag", "value": "outdoor_work" }, { "type": "interest", "value": "Nature" } ] },
+          { "text": "Un espace collaboratif et dynamique (open space, atelier...).", "tags": [ { "type": "tag", "value": "teamwork" }, { "type": "tag", "value": "fast_paced_env" } ] },
+          { "text": "Flexible, avec une forte possibilité de télétravail.", "tags": [ { "type": "tag", "value": "remote_work" }, { "type": "quality", "value": "Autonomie" } ] }
+        ]
+      },
+      {
+        "id": "aq07",
+        "question": "Quelle contrainte physique seriez-vous prêt(e) à accepter ?",
+        "options": [
+          { "text": "Travailler en extérieur, exposé(e) aux conditions météo.", "tags": [ { "type": "tag", "value": "outdoor_work" } ] },
+          { "text": "Le port régulier de charges ou des positions de travail physiquement exigeantes.", "tags": [ { "type": "tag", "value": "physical_work" } ] },
+          { "text": "Des déplacements professionnels fréquents.", "tags": [ { "type": "tag", "value": "travel" } ] },
+          { "text": "Aucune de ces contraintes ne me convient.", "tags": [ { "type": "tag", "value": "office_work" } ] }
+        ]
+      }
+    ],
+    "problem_solving": [
+      {
+        "id": "aq04",
+        "question": "Face à un problème complexe et inattendu, votre premier réflexe est de :",
+        "options": [
+          { "text": "Prendre du recul pour analyser la situation et établir un plan d'action logique.", "tags": [ { "type": "quality", "value": "Esprit critique" }, { "type": "quality", "value": "Sang-froid" }, { "type": "quality", "value": "Logique" } ] },
+          { "text": "Prendre les devants et proposer rapidement une nouvelle direction à l'équipe.", "tags": [ { "type": "skill", "value": "Prise d'initiative" }, { "type": "quality", "value": "Leadership" }, { "type": "quality", "value": "Réactivité" } ] },
+          { "text": "Consulter des experts ou des collègues pour recueillir différents avis.", "tags": [ { "type": "quality", "value": "Collaboration" }, { "type": "skill", "value": "Recherche de feedback" } ] },
+          { "text": "Faire confiance à votre intuition et expérimenter une solution originale.", "tags": [ { "type": "quality", "value": "Intuition" }, { "type": "quality", "value": "Créativité" }, { "type": "skill", "value": "Expérimentation" } ] }
+        ]
+      }
+    ],
+    "work_style": [
+      {
+        "id": "aq05",
+        "question": "Vous êtes plus performant(e) quand...",
+        "options": [
+          { "text": "Vous suivez des procédures claires et bien établies.", "tags": [ { "type": "tag", "value": "rules_oriented" }, { "type": "tag", "value": "structured_env" }, { "type": "quality", "value": "Rigueur" } ] },
+          { "text": "Vous avez une grande autonomie et gérez votre propre emploi du temps.", "tags": [ { "type": "quality", "value": "Autonomie" }, { "type": "tag", "value": "independence" }, { "type": "quality", "value": "Organisation" } ] },
+          { "text": "Vous travaillez en équipe sur un objectif commun.", "tags": [ { "type": "tag", "value": "teamwork" }, { "type": "quality", "value": "Collaboration" } ] },
+          { "text": "Vous êtes sous pression avec des délais serrés.", "tags": [ { "type": "tag", "value": "high_pressure" }, { "type": "quality", "value": "Gestion du stress" }, { "type": "quality", "value": "Réactivité" } ] }
+        ]
+      },
+      {
+        "id": "aq10",
+        "question": "Quel type de structure d'entreprise vous attire le plus ?",
+        "options": [
+          { "text": "Une grande entreprise, pour la stabilité et les opportunités d'évolution.", "tags": [ { "type": "tag", "value": "stable_env" }, { "type": "interest", "value": "Stabilité" } ] },
+          { "text": "Une startup ou une PME, pour la polyvalence et l'impact direct.", "tags": [ { "type": "tag", "value": "fast_paced_env" }, { "type": "quality", "value": "Adaptabilité" } ] },
+          { "text": "Une association ou une ONG, pour l'engagement et les valeurs.", "tags": [ { "type": "tag", "value": "ethics_oriented" }, { "type": "interest", "value": "Solidarité & Soin" } ] },
+          { "text": "Être à mon compte, pour la liberté et l'autonomie.", "tags": [ { "type": "quality", "value": "Autonomie" }, { "type": "tag", "value": "independence" } ] }
+        ]
+      }
+    ],
+    "skills_transfer": [
+      {
+        "id": "aq06",
+        "question": "Laquelle de ces compétences transversales vous correspond le mieux ?",
+        "options": [
+          { "text": "Animer, former ou transmettre des connaissances.", "tags": [ { "type": "interest", "value": "Transmission" }, { "type": "tag", "value": "mentorship" }, { "type": "skill", "value": "Communication" } ] },
+          { "text": "Négocier, convaincre et vendre des idées ou des produits.", "tags": [ { "type": "skill", "value": "Négociation" }, { "type": "skill", "value": "Communication" } ] },
+          { "text": "Analyser des chiffres, des données et en tirer des conclusions.", "tags": [ { "type": "skill", "value": "Analyse de données" }, { "type": "quality", "value": "Esprit critique" } ] },
+          { "text": "Concevoir et fabriquer des objets concrets de vos mains.", "tags": [ { "type": "interest", "value": "Travail manuel" }, { "type": "skill", "value": "Habileté manuelle" } ] }
+        ]
+      },
+      {
+        "id": "aq11",
+        "question": "Parmi ces actions, laquelle vous semble la plus naturelle ?",
+        "options": [
+          { "text": "Optimiser un processus pour le rendre plus efficace.", "tags": [ { "type": "skill", "value": "Optimisation" }, { "type": "quality", "value": "Pragmatisme" } ] },
+          { "text": "Prendre soin de quelqu'un ou l'accompagner dans une difficulté.", "tags": [ { "type": "skill", "value": "Soins" }, { "type": "quality", "value": "Empathie" } ] },
+          { "text": "Analyser une situation complexe pour en comprendre toutes les facettes.", "tags": [ { "type": "quality", "value": "Esprit critique" }, { "type": "skill", "value": "Conceptualisation" } ] },
+          { "text": "Utiliser un outil ou une machine avec une grande précision.", "tags": [ { "type": "skill", "value": "Habileté technique" }, { "type": "quality", "value": "Précision" } ] }
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "aq08",
+        "question": "Un projet est vraiment réussi pour vous quand...",
+        "options": [
+          { "text": "Il est livré à temps et respecte le budget.", "tags": [ { "type": "quality", "value": "Rigueur" }, { "type": "quality", "value": "Organisation" } ] },
+          { "text": "Le client ou l'utilisateur final en est pleinement satisfait.", "tags": [ { "type": "quality", "value": "Empathie" }, { "type": "tag", "value": "customer_facing" } ] },
+          { "text": "Il est innovant et repousse les limites de l'existant.", "tags": [ { "type": "interest", "value": "Innovation" }, { "type": "quality", "value": "Créativité" } ] },
+          { "text": "Chaque détail a été soigné et le résultat est impeccable.", "tags": [ { "type": "quality", "value": "Perfectionnisme" }, { "type": "tag", "value": "detail_oriented" } ] }
+        ]
+      },
+      {
+        "id": "aq12",
+        "question": "Quelle serait votre plus grande fierté dans votre futur travail ?",
+        "options": [
+          { "text": "Être reconnu(e) comme un(e) expert(e) dans mon domaine.", "tags": [ { "type": "quality", "value": "Expertise" }, { "type": "interest", "value": "Reconnaissance" } ] },
+          { "text": "Avoir un impact positif et mesurable sur la société ou l'environnement.", "tags": [ { "type": "tag", "value": "sustainability_oriented" }, { "type": "tag", "value": "helping_others" } ] },
+          { "text": "Construire une équipe soudée et performante.", "tags": [ { "type": "quality", "value": "Leadership" }, { "type": "tag", "value": "teamwork" } ] },
+          { "text": "Créer un produit ou un service qui n'existait pas avant.", "tags": [ { "type": "interest", "value": "Innovation" }, { "type": "interest", "value": "Aime construire" } ] }
+        ]
+      }
+    ],
+    "interest": [
+      {
+        "id": "aq09",
+        "question": "Si vous deviez vous former, quel type de connaissance chercheriez-vous à acquérir ?",
+        "options": [
+          { "text": "Des connaissances techniques ou scientifiques pointues.", "tags": [ { "type": "quality", "value": "Expertise" }, { "type": "domain", "value": "tech_science" } ] },
+          { "text": "La maîtrise de langues étrangères.", "tags": [ { "type": "interest", "value": "Langues" }, { "type": "domain", "value": "lang_comm" } ] },
+          { "text": "La compréhension des mécanismes économiques et financiers.", "tags": [ { "type": "domain", "value": "finance_business" }, { "type": "interest", "value": "Aime comprendre la société" } ] },
+          { "text": "Des savoirs liés au droit, aux réglementations et aux normes.", "tags": [ { "type": "domain", "value": "law_admin" }, { "type": "quality", "value": "Rigueur" } ] }
+        ]
+      }
+    ]
+  }
+}

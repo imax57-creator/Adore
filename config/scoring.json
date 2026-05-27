@@ -1,0 +1,13 @@
+{
+  "tag_category_weights": {
+    "qualities": 0.3,
+    "interests": 0.5,
+    "skills": 1.5,
+    "default": 1.0
+  },
+  "reconversion_engine_weights": {
+    "affinity_score": 0.6,
+    "transferability_bonus": 0.4
+  },
+  "popularity_bias_factor": 2.4
+}

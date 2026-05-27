@@ -1,0 +1,40 @@
+{
+  "SANS_DIPLOME": [
+    "sans diplôme"
+  ],
+  "CAP_BEP": [
+    "CAP",
+    "BEP",
+    "certificat d'aptitude professionnelle",
+    "brevet d'études professionnelles"
+  ],
+  "BAC": [
+    "Bac",
+    "Baccalauréat",
+    "BP ",
+    "brevet professionnel"
+  ],
+  "BAC+2": [
+    "BTS",
+    "DUT",
+    "DEUST",
+    "brevet de technicien supérieur"
+  ],
+  "BAC+3": [
+    "Licence",
+    "BUT"
+  ],
+  "BAC+5": [
+    "Master",
+    "Diplôme d'ingénieur"
+  ],
+  "BAC+8": [
+    "Doctorat"
+  ],
+  "CACES": [
+    "CACES"
+  ],
+  "HABILITATION": [
+    "Habilitation"
+  ]
+}

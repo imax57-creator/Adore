@@ -1,0 +1,272 @@
+{
+  "questions": [
+    {
+      "id": "q01",
+      "category": "work_style",
+      "question": "Pour un exposé, tu es celui/celle qui...",
+      "options": [
+        {
+          "text": "Organise le plan, répartit les tâches et vérifie que tout le monde a fait sa partie.",
+          "tags": [ { "type": "skill", "value": "Gestion de projet" }, { "type": "quality", "value": "Organisation" }, { "type": "quality", "value": "Leadership" } ]
+        },
+        {
+          "text": "Fait les recherches approfondies pour trouver des informations que les autres n'ont pas.",
+          "tags": [ { "type": "skill", "value": "Recherche d'information" }, { "type": "quality", "value": "Curiosité" }, { "type": "quality", "value": "Rigueur" } ]
+        },
+        {
+          "text": "S'occupe de la présentation, des slides, pour que ce soit beau et percutant.",
+          "tags": [ { "type": "skill", "value": "Créativité visuelle" }, { "type": "interest", "value": "Esthétique" }, { "type": "skill", "value": "Communication" } ]
+        },
+        {
+          "text": "Prend la parole pour présenter le travail au reste de la classe avec aisance.",
+          "tags": [ { "type": "skill", "value": "Expression" }, { "type": "quality", "value": "Confiance" }, { "type": "skill", "value": "Communication" } ]
+        }
+      ]
+    },
+    {
+      "id": "q02",
+      "category": "problem_solving",
+      "question": "Ton ordinateur ou ton téléphone a un bug. Quelle est ta réaction ?",
+      "options": [
+        {
+          "text": "Je cherche méthodiquement la source du problème sur des forums jusqu'à trouver la solution.",
+          "tags": [ { "type": "interest", "value": "Résolution de problèmes" }, { "type": "quality", "value": "Logique" }, { "type": "quality", "value": "Persévérance" } ]
+        },
+        {
+          "text": "Je demande tout de suite à un(e) ami(e) qui s'y connaît mieux.",
+          "tags": [ { "type": "quality", "value": "Collaboration" }, { "type": "skill", "value": "Recherche de feedback" } ]
+        },
+        {
+          "text": "J'essaie plein de choses au hasard jusqu'à ce que ça remarche.",
+          "tags": [ { "type": "skill", "value": "Expérimentation" }, { "type": "quality", "value": "Pragmatisme" } ]
+        },
+        {
+          "text": "Je l'ignore en espérant que ça se résolve tout seul, ou je l'amène à réparer.",
+          "tags": [ { "type": "interest", "value": "Stabilité" } ]
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "category": "interest",
+      "question": "Si tu devais créer quelque chose, ce serait plutôt...",
+      "options": [
+        {
+          "text": "Un jeu vidéo, avec son histoire et ses personnages.",
+          "tags": [ { "type": "interest", "value": "Aime construire" }, { "type": "domain", "value": "it_digital" }, { "type": "quality", "value": "Créativité" } ]
+        },
+        {
+          "text": "Un meuble ou un objet de décoration pour ta chambre.",
+          "tags": [ { "type": "interest", "value": "Travail manuel" }, { "type": "domain", "value": "crafts_manual" }, { "type": "skill", "value": "Habileté manuelle" } ]
+        },
+        {
+          "text": "Une chanson, un poème ou une nouvelle.",
+          "tags": [ { "type": "interest", "value": "Création artistique" }, { "type": "skill", "value": "Expression" }, { "type": "domain", "value": "art_culture" } ]
+        },
+        {
+          "text": "Un programme ou un petit robot pour automatiser une tâche.",
+          "tags": [ { "type": "interest", "value": "Technologie" }, { "type": "interest", "value": "Robotique & IA" }, { "type": "skill", "value": "Optimisation" } ]
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "category": "values",
+      "question": "Qu'est-ce qui te semble le plus admirable ?",
+      "options": [
+        {
+          "text": "Les athlètes qui battent des records mondiaux.",
+          "tags": [ { "type": "interest", "value": "Performance" }, { "type": "quality", "value": "Persévérance" }, { "type": "interest", "value": "Défi" } ]
+        },
+        {
+          "text": "Les médecins ou les pompiers qui sauvent des vies.",
+          "tags": [ { "type": "interest", "value": "Solidarité & Soin" }, { "type": "tag", "value": "helping_others" }, { "type": "quality", "value": "Sang-froid" } ]
+        },
+        {
+          "text": "Les entrepreneurs qui créent des entreprises innovantes.",
+          "tags": [ { "type": "interest", "value": "Innovation" }, { "type": "quality", "value": "Esprit entrepreneurial" }, { "type": "quality", "value": "Vision" } ]
+        },
+        {
+          "text": "Les artistes dont les œuvres traversent les siècles.",
+          "tags": [ { "type": "interest", "value": "Création artistique" }, { "type": "interest", "value": "Culture" }, { "type": "interest", "value": "Esthétique" } ]
+        }
+      ]
+    },
+    {
+      "id": "q05",
+      "category": "work_style",
+      "question": "Tu préfères un jeu...",
+      "options": [
+        {
+          "text": "De stratégie, où il faut planifier ses actions très en avance.",
+          "tags": [ { "type": "quality", "value": "Logique" }, { "type": "skill", "value": "Conceptualisation" }, { "type": "quality", "value": "Vision" } ]
+        },
+        {
+          "text": "Compétitif, où tu te mesures directement aux autres.",
+          "tags": [ { "type": "interest", "value": "Performance" }, { "type": "interest", "value": "Défi" } ]
+        },
+        {
+          "text": "Collaboratif, où toute l'équipe gagne ou perd ensemble.",
+          "tags": [ { "type": "quality", "value": "Collaboration" }, { "type": "tag", "value": "teamwork" } ]
+        },
+        {
+          "text": "De construction ou de 'crafting', où tu peux créer librement.",
+          "tags": [ { "type": "interest", "value": "Aime construire" }, { "type": "quality", "value": "Créativité" }, { "type": "quality", "value": "Patience" } ]
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "category": "interest",
+      "question": "Quel type de vidéo as-tu le plus de chance de regarder sur YouTube/TikTok ?",
+      "options": [
+        {
+          "text": "Des documentaires ou des vidéos de vulgarisation scientifique.",
+          "tags": [ { "type": "quality", "value": "Curiosité" }, { "type": "quality", "value": "Apprentissage continu" }, { "type": "interest", "value": "Découverte" } ]
+        },
+        {
+          "text": "Des tutoriels pour apprendre à faire quelque chose (bricolage, dessin, code...).",
+          "tags": [ { "type": "skill", "value": "Pratique" }, { "type": "quality", "value": "Autonomie" }, { "type": "interest", "value": "Aime construire" } ]
+        },
+        {
+          "text": "Des analyses et des critiques de films, de séries ou de jeux vidéo.",
+          "tags": [ { "type": "quality", "value": "Esprit critique" }, { "type": "interest", "value": "Culture" } ]
+        },
+        {
+          "text": "Des reportages sur des sujets de société ou d'actualité.",
+          "tags": [ { "type": "interest", "value": "Aime comprendre la société" }, { "type": "quality", "value": "Ouverture d’esprit" } ]
+        }
+      ]
+    },
+    {
+      "id": "q07",
+      "category": "projection",
+      "question": "Dans un futur métier, qu'est-ce qui serait pour toi le plus gratifiant ?",
+      "options": [
+        {
+          "text": "Devenir un expert incontournable dans ton domaine.",
+          "tags": [ { "type": "quality", "value": "Expertise" }, { "type": "interest", "value": "Reconnaissance" }, { "type": "quality", "value": "Persévérance" } ]
+        },
+        {
+          "text": "De diriger une équipe et de la mener vers le succès.",
+          "tags": [ { "type": "quality", "value": "Leadership" }, { "type": "tag", "value": "teamwork" }, { "type": "quality", "value": "Responsabilité" } ]
+        },
+        {
+          "text": "D'avoir un impact positif sur la vie des gens ou sur la planète.",
+          "tags": [ { "type": "interest", "value": "Solidarité & Soin" }, { "type": "tag", "value": "sustainability_oriented" }, { "type": "tag", "value": "ethics_oriented" } ]
+        },
+        {
+          "text": "D'avoir une grande liberté d'action et de ne dépendre de personne.",
+          "tags": [ { "type": "quality", "value": "Autonomie" }, { "type": "tag", "value": "independence" }, { "type": "skill", "value": "Prise d'initiative" } ]
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "category": "work_style",
+      "question": "Quand tu dois suivre une recette de cuisine ou un plan de montage :",
+      "options": [
+        {
+          "text": "Tu suis les instructions à la lettre, sans rien changer.",
+          "tags": [ { "type": "quality", "value": "Rigueur" }, { "type": "quality", "value": "Précision" }, { "type": "tag", "value": "rules_oriented" } ]
+        },
+        {
+          "text": "Tu lis les instructions une fois, puis tu adaptes 'à ta sauce'.",
+          "tags": [ { "type": "quality", "value": "Adaptabilité" }, { "type": "quality", "value": "Créativité" }, { "type": "quality", "value": "Intuition" } ]
+        },
+        {
+          "text": "Tu ne lis même pas, tu essaies de deviner comment faire.",
+          "tags": [ { "type": "skill", "value": "Expérimentation" }, { "type": "quality", "value": "Confiance" } ]
+        }
+      ]
+    },
+    {
+      "id": "q09",
+      "category": "interest",
+      "question": "Quel est ton super-pouvoir rêvé ?",
+      "options": [
+        {
+          "text": "Parler toutes les langues du monde.",
+          "tags": [ { "type": "interest", "value": "Langues" }, { "type": "interest", "value": "Culture" }, { "type": "skill", "value": "Communication" } ]
+        },
+        {
+          "text": "Comprendre et communiquer avec les animaux.",
+          "tags": [ { "type": "interest", "value": "Nature" }, { "type": "quality", "value": "Empathie" }, { "type": "domain", "value": "enviro_agri" } ]
+        },
+        {
+          "text": "Construire n'importe quel objet par la pensée.",
+          "tags": [ { "type": "interest", "value": "Aime construire" }, { "type": "skill", "value": "Conceptualisation" }, { "type": "quality", "value": "Vision" } ]
+        },
+        {
+          "text": "Voyager dans le temps pour comprendre le passé.",
+          "tags": [ { "type": "interest", "value": "Histoire" }, { "type": "quality", "value": "Curiosité" }, { "type": "quality", "value": "Esprit critique" } ]
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "category": "values",
+      "question": "Pour toi, le plus important à l'école, c'est...",
+      "options": [
+        {
+          "text": "D'avoir de bonnes notes et d'être parmi les meilleurs.",
+          "tags": [ { "type": "interest", "value": "Performance" }, { "type": "interest", "value": "Reconnaissance" } ]
+        },
+        {
+          "text": "De comprendre comment le monde fonctionne.",
+          "tags": [ { "type": "quality", "value": "Curiosité" }, { "type": "interest", "value": "Aime comprendre la société" } ]
+        },
+        {
+          "text": "D'apprendre des choses qui serviront dans la vie de tous les jours.",
+          "tags": [ { "type": "quality", "value": "Pragmatisme" }, { "type": "skill", "value": "Pratique" } ]
+        },
+        {
+          "text": "De passer du bon temps avec ses amis.",
+          "tags": [ { "type": "interest", "value": "Relations humaines" }, { "type": "quality", "value": "Collaboration" } ]
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "category": "work_style",
+      "question": "Un(e) ami(e) a des difficultés à comprendre un exercice. Ta réaction la plus naturelle est de...",
+      "options": [
+        {
+          "text": "Lui ré-expliquer avec tes propres mots, en essayant différentes approches.",
+          "tags": [ { "type": "interest", "value": "Transmission" }, { "type": "quality", "value": "Patience" }, { "type": "quality", "value": "Empathie" } ]
+        },
+        {
+          "text": "Lui montrer la solution pour qu'il/elle puisse avancer rapidement.",
+          "tags": [ { "type": "quality", "value": "Pragmatisme" }, { "type": "skill", "value": "Optimisation" } ]
+        },
+        {
+          "text": "Lui dire de chercher la réponse par lui/elle-même pour apprendre.",
+          "tags": [ { "type": "quality", "value": "Autonomie" }, { "type": "tag", "value": "independence" } ]
+        },
+        {
+          "text": "Chercher la solution avec lui/elle, pour que vous progressiez ensemble.",
+          "tags": [ { "type": "quality", "value": "Collaboration" }, { "type": "tag", "value": "teamwork" } ]
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "category": "work_style",
+      "question": "Un(e) nouvel(le) élève arrive dans ton école et a l'air complètement perdu(e). Que fais-tu ?",
+      "options": [
+        {
+          "text": "Tu vas directement vers lui/elle pour lui demander s'il/elle a besoin d'aide et tu lui proposes un petit tour.",
+          "tags": [ { "type": "tag", "value": "customer_facing" }, { "type": "quality", "value": "Empathie" }, { "type": "tag", "value": "helping_others" } ]
+        },
+        {
+          "text": "Tu attends de voir si quelqu'un d'autre va l'aider, tu n'oses pas trop y aller.",
+          "tags": [ { "type": "quality", "value": "Prudence" }, { "type": "tag", "value": "solo_work" } ]
+        },
+        {
+          "text": "Tu te dis qu'il/elle finira bien par trouver ou demander à un adulte.",
+          "tags": [ { "type": "quality", "value": "Autonomie" } ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+    "name_view_title": {
+        "jeune": "Comment veux-tu t'appeler ?",
+        "adulte": "Entrez votre prénom pour personnaliser votre parcours."
+    },
+    "name_view_placeholder": {
+        "jeune": "Prénom ou pseudo...",
+        "adulte": "Votre prénom"
+    },
+    "results_view_intro": {
+        "jeune": "Voici les métiers qui semblent te correspondre le plus !",
+        "adulte": "Nous avons analysé vos réponses — voici les métiers les plus compatibles avec votre profil."
+    }
+}
