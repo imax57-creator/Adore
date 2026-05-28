@@ -290,6 +290,45 @@
           "tags": [{"type": "work_context_pref", "value": "atelier"}]
         }
       ]
+    },
+    {
+      "id": "q14",
+      "category": "interest",
+      "question": "Parmi ces univers professionnels, lequel t'attire le plus ?",
+      "options": [
+        {
+          "text": "La cuisine, l'hôtellerie ou le tourisme : créer des expériences, accueillir et faire plaisir.",
+          "tags": [
+            {"type": "domain", "value": "horeca"},
+            {"type": "interest", "value": "Relations humaines"},
+            {"type": "tag", "value": "customer_facing"}
+          ]
+        },
+        {
+          "text": "Le spectacle, la musique, le cinéma ou les arts de la scène.",
+          "tags": [
+            {"type": "domain", "value": "spectacle_av"},
+            {"type": "interest", "value": "Création artistique"},
+            {"type": "domain", "value": "art_culture"}
+          ]
+        },
+        {
+          "text": "Les médias, le journalisme, la communication ou le marketing.",
+          "tags": [
+            {"type": "domain", "value": "media_comm"},
+            {"type": "skill", "value": "Expression"},
+            {"type": "skill", "value": "Communication"}
+          ]
+        },
+        {
+          "text": "La mécanique, l'électricité, la maintenance ou l'installation de systèmes.",
+          "tags": [
+            {"type": "domain", "value": "maintenance_tech"},
+            {"type": "interest", "value": "Aime construire"},
+            {"type": "skill", "value": "Habileté technique"}
+          ]
+        }
+      ]
     }
   ]
 }

@@ -7,7 +7,7 @@
     "skills_transfer": 2,
     "values": 2,
     "problem_solving": 1,
-    "interest": 1,
+    "interest": 2,
     "reconversion_pratique": 3
   },
   "dimensions": {
@@ -175,6 +175,44 @@
           { "text": "La maîtrise de langues étrangères.", "tags": [ { "type": "interest", "value": "Langues" }, { "type": "domain", "value": "lang_comm" } ] },
           { "text": "La compréhension des mécanismes économiques et financiers.", "tags": [ { "type": "domain", "value": "finance_business" }, { "type": "interest", "value": "Aime comprendre la société" } ] },
           { "text": "Des savoirs liés au droit, aux réglementations et aux normes.", "tags": [ { "type": "domain", "value": "law_admin" }, { "type": "quality", "value": "Rigueur" } ] }
+        ]
+      },
+      {
+        "id": "aq16",
+        "question": "Quel secteur vous attire pour votre reconversion ?",
+        "options": [
+          {
+            "text": "La santé, le paramédical ou le travail social.",
+            "tags": [
+              { "type": "domain", "value": "health_social" },
+              { "type": "interest", "value": "Solidarité & Soin" },
+              { "type": "tag", "value": "helping_others" }
+            ]
+          },
+          {
+            "text": "L'hôtellerie, la restauration ou le tourisme.",
+            "tags": [
+              { "type": "domain", "value": "horeca" },
+              { "type": "domain", "value": "commerce_tourism" },
+              { "type": "interest", "value": "Relations humaines" }
+            ]
+          },
+          {
+            "text": "Les médias, la communication, le spectacle ou la culture.",
+            "tags": [
+              { "type": "domain", "value": "media_comm" },
+              { "type": "domain", "value": "spectacle_av" },
+              { "type": "skill", "value": "Expression" }
+            ]
+          },
+          {
+            "text": "L'industrie, la maintenance technique, l'énergie ou les installations.",
+            "tags": [
+              { "type": "domain", "value": "maintenance_tech" },
+              { "type": "interest", "value": "Aime construire" },
+              { "type": "skill", "value": "Habileté technique" }
+            ]
+          }
         ]
       }
     ],
