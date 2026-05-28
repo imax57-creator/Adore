@@ -14,7 +14,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 from app.logic.profile_utils import generate_random_profile
-from test_utils import load_all_data, run_suggestion_engine, get_predefined_profiles
+from test_utils import load_all_data, get_data_manager, run_suggestion_engine, run_adulte_suggestion_engine, get_predefined_profiles
 
 NUM_SIMULATIONS = 200   # profils aléatoires pour la couverture empirique
 TOP_N = 30              # taille de la liste de suggestions inspectée
@@ -39,8 +39,17 @@ def check_structural_exclusions(jobs_data):
 # ── 2. COUVERTURE EMPIRIQUE ──────────────────────────────────────────────────
 
 def check_empirical_coverage(jobs_data, questions_data, semantic_map, idf_map,
-                              tag_profile_freq, term_to_category_map, scoring_config):
-    """Calcule le taux de couverture du catalogue sur NUM_SIMULATIONS profils aléatoires."""
+                              tag_profile_freq, term_to_category_map, scoring_config,
+                              engine_fn=None, label=""):
+    """Calcule le taux de couverture du catalogue sur NUM_SIMULATIONS profils aléatoires.
+
+    engine_fn : fonction(profile, jobs, sem_map, idf, tpf, t2c, cfg) → liste de jobs.
+                Par défaut : run_suggestion_engine (moteur jeune).
+    label     : libellé affiché dans la console (ex. "jeune", "adulte").
+    """
+    if engine_fn is None:
+        engine_fn = run_suggestion_engine
+
     all_codes = {
         job.get('rome', {}).get('code_rome')
         for job in jobs_data
@@ -52,12 +61,13 @@ def check_empirical_coverage(jobs_data, questions_data, semantic_map, idf_map,
     }
 
     seen = Counter()
+    prefix = f"[{label}] " if label else ""
 
-    print(f"  Catalogue : {len(all_codes)} métiers. Simulation de {NUM_SIMULATIONS} profils...")
+    print(f"  {prefix}Catalogue : {len(all_codes)} métiers. Simulation de {NUM_SIMULATIONS} profils...")
     for i in range(NUM_SIMULATIONS):
-        print(f"\r  Simulation {i + 1}/{NUM_SIMULATIONS}...", end="")
+        print(f"\r  {prefix}Simulation {i + 1}/{NUM_SIMULATIONS}...", end="")
         profile = generate_random_profile(questions_data)
-        results = run_suggestion_engine(
+        results = engine_fn(
             profile, jobs_data, semantic_map,
             idf_map, tag_profile_freq, term_to_category_map, scoring_config
         )
@@ -160,12 +170,15 @@ def run_all_checks():
     else:
         messages.append("  Exclusions structurelles : aucune détectée.")
 
-    # 2. Couverture empirique
+    # 2. Couverture empirique — quiz jeune
     print("\n[2/3] Couverture empirique du catalogue...")
+    print("  --- Quiz Jeune ---")
     coverage_rate, never_count, total, top10, never_sample = check_empirical_coverage(
         jobs_data, questions_data, semantic_map,
-        idf_map, tag_profile_freq, term_to_category_map, scoring_config
+        idf_map, tag_profile_freq, term_to_category_map, scoring_config,
+        engine_fn=run_suggestion_engine, label="jeune"
     )
+    messages.append("  [Quiz Jeune]")
     messages.append(
         f"  Couverture : {total - never_count}/{total} métiers atteints "
         f"({coverage_rate:.1%}) sur {NUM_SIMULATIONS} profils aléatoires."
@@ -179,10 +192,39 @@ def run_all_checks():
 
     if coverage_rate < MIN_COVERAGE_RATE:
         errors.append(
-            f"Couverture trop faible : {coverage_rate:.1%} du catalogue atteint "
+            f"[Jeune] Couverture trop faible : {coverage_rate:.1%} du catalogue atteint "
             f"(minimum requis : {MIN_COVERAGE_RATE:.0%})."
         )
         overall_success = False
+
+    # 2b. Couverture empirique — quiz adulte
+    dm = get_data_manager()
+    questions_adulte = dm.questions_adulte if dm else None
+    if questions_adulte:
+        print("  --- Quiz Adulte ---")
+        coverage_adulte, never_adulte, _, top10_adulte, never_sample_adulte = check_empirical_coverage(
+            jobs_data, questions_adulte, semantic_map,
+            idf_map, tag_profile_freq, term_to_category_map, scoring_config,
+            engine_fn=run_adulte_suggestion_engine, label="adulte"
+        )
+        messages.append("  [Quiz Adulte]")
+        messages.append(
+            f"  Couverture : {total - never_adulte}/{total} métiers atteints "
+            f"({coverage_adulte:.1%}) sur {NUM_SIMULATIONS} profils aléatoires."
+        )
+        messages.append(f"  Métiers jamais suggérés : {never_adulte}/{total} ({never_adulte/total:.1%})")
+        messages.append("  Top 10 des plus suggérés :")
+        messages.extend(top10_adulte)
+        if never_sample_adulte:
+            messages.append(f"  Exemple de métiers jamais vus (sur {NUM_SIMULATIONS} tirages) :")
+            messages.extend(never_sample_adulte)
+
+        if coverage_adulte < MIN_COVERAGE_RATE:
+            errors.append(
+                f"[Adulte] Couverture trop faible : {coverage_adulte:.1%} du catalogue atteint "
+                f"(minimum requis : {MIN_COVERAGE_RATE:.0%})."
+            )
+            overall_success = False
 
     # 3. Profils ciblés
     print("\n[3/3] Vérification des profils ciblés...")
@@ -196,10 +238,12 @@ def run_all_checks():
         overall_success = False
 
     # Résumé
+    adulte_summary = f" | adulte {coverage_adulte:.1%}" if questions_adulte else ""
     if overall_success:
-        print(f"\n-> Couverture {coverage_rate:.1%} | {never_count} métiers jamais vus | profils ciblés OK")
+        print(f"\n-> Jeune {coverage_rate:.1%}{adulte_summary} | {never_count} métiers jamais vus (jeune) | profils ciblés OK")
         print("-> Test de couverture réussi.")
     else:
+        print(f"\n-> Jeune {coverage_rate:.1%}{adulte_summary} | {never_count} métiers jamais vus (jeune)")
         print("-> Test de couverture échoué.")
 
     print("--- Test de Couverture Terminé ---\n")
