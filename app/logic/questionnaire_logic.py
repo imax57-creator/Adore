@@ -82,7 +82,7 @@ def calculate_recommendations(user_profile, jobs_data, semantic_map, idf_map, ta
                     work_context_prefs.append(tag.get('value'))
 
     user_profile_terms = Counter()
-    for keyword, count in (quality_scores + interest_scores + skill_scores).items():
+    for keyword, count in (quality_scores + interest_scores + skill_scores + user_work_styles).items():
         search_terms = semantic_map.get(keyword, [keyword.lower()])
         for term in search_terms:
             for sub_term in term.split():
